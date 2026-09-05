@@ -53,19 +53,21 @@ const itemVariants = {
 
 const headlineVariants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.18 } },
 }
 
 const lineVariants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0 } },
+  show: { transition: { staggerChildren: 0.028 } },
 }
 
-const lineInnerVariants = {
-  hidden: { y: '110%' },
+const letterVariants = {
+  hidden: { opacity: 0, y: '0.55em', rotateX: -42 },
   show: {
-    y: '0%',
-    transition: { duration: 0.5, ease: easeOut },
+    opacity: 1,
+    y: '0em',
+    rotateX: 0,
+    transition: { duration: 0.52, ease: easeOut },
   },
 }
 
@@ -108,7 +110,7 @@ const Texture = styled.div`
 const Top = styled.header`
   position: relative;
   z-index: 1;
-  padding: 1.35rem clamp(1rem, 3vw, 2rem) 0;
+  padding: 1.35rem clamp(1.5rem, 5vw, 2.75rem) 0;
 `
 
 const Wordmark = styled(motion.p)`
@@ -122,20 +124,24 @@ const Wordmark = styled(motion.p)`
   color: var(--color-primary);
 `
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem 1.25rem;
-  padding: 0.7rem 0 0.85rem;
+  gap: 0.75rem 1.5rem;
+  padding: 0.85rem clamp(1.5rem, 5vw, 2.75rem);
+  background: color-mix(in srgb, var(--color-background) 78%, transparent);
+  backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--color-border);
 `
 
 const NavLinks = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem 1.35rem;
+  gap: 1.15rem 1.75rem;
 `
 
 const NavLink = styled.a`
@@ -178,11 +184,11 @@ const NavLink = styled.a`
   }
 `
 
-const NavCta = styled.a`
+const NavCta = styled(motion.a)`
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
-  padding: 0.4rem 0.9rem;
+  min-height: 44px;
+  padding: 0.55rem 1.2rem;
   border-radius: 999px;
   background: var(--color-primary);
   color: var(--color-on-primary);
@@ -190,11 +196,14 @@ const NavCta = styled.a`
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--color-primary) 18%, transparent);
   transition: box-shadow 0.2s ease;
 
   &:hover,
   &:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-accent);
+    box-shadow:
+      0 0 0 2px var(--color-accent),
+      0 12px 24px color-mix(in srgb, var(--color-primary) 22%, transparent);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -224,17 +233,25 @@ const Headline = styled(motion.h1)`
   text-wrap: balance;
 `
 
-const AccentLine = styled.span`
-  color: var(--color-accent);
-`
-
 const Line = styled(motion.span)`
   display: block;
   overflow: hidden;
+  perspective: 420px;
 `
 
-const LineInner = styled(motion.span)`
-  display: block;
+const Letter = styled(motion.span)`
+  display: inline-block;
+  transform-origin: 50% 100%;
+  white-space: pre;
+`
+
+const AccentLetter = styled(Letter)`
+  color: var(--color-accent);
+  transition: text-shadow 0.25s ease;
+
+  &:hover {
+    text-shadow: 0 0 18px color-mix(in srgb, var(--color-accent) 60%, transparent);
+  }
 `
 
 const Lede = styled(motion.p)`
@@ -481,29 +498,66 @@ export default function HeroSection() {
         >
           AI Studio
         </Wordmark>
-        <Nav aria-label="AI Studio">
-          <NavLinks>
-            <NavLink href="#how-it-works">How it works</NavLink>
-            <NavLink href="#styles">Looks</NavLink>
-            <NavLink href="#studio">Workflow</NavLink>
-          </NavLinks>
-          <NavCta href="#studio" data-cursor="action">
+      </Top>
+
+      <Nav
+        aria-label="AI Studio"
+        initial={reduceMotion ? false : { opacity: 0, y: -14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: reduceMotion ? 0 : 0.45,
+          ease: easeOut,
+          delay: 0.06,
+        }}
+      >
+        <NavLinks>
+          <NavLink href="#how-it-works">How it works</NavLink>
+          <NavLink href="#styles">Looks</NavLink>
+          <NavLink href="#studio">Workflow</NavLink>
+        </NavLinks>
+        <Magnetic>
+          <NavCta
+            href="#studio"
+            data-cursor="action"
+            whileHover={reduceMotion ? undefined : { scale: 1.04 }}
+            whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+          >
             Start Creating
           </NavCta>
-        </Nav>
-      </Top>
+        </Magnetic>
+      </Nav>
 
       <Main
         initial={reduceMotion ? false : 'hidden'}
         animate="show"
         variants={contentVariants}
       >
-        <Headline variants={reduceMotion ? undefined : headlineVariants}>
+        <Headline
+          aria-label={headline.join(' ')}
+          variants={reduceMotion ? undefined : headlineVariants}
+        >
           {headline.map((text, index) => (
-            <Line key={text} variants={reduceMotion ? undefined : lineVariants}>
-              <LineInner variants={reduceMotion ? undefined : lineInnerVariants}>
-                {index === 1 ? <AccentLine>{text}</AccentLine> : text}
-              </LineInner>
+            <Line
+              key={text}
+              aria-hidden="true"
+              variants={reduceMotion ? undefined : lineVariants}
+            >
+              {reduceMotion
+                ? index === 1
+                  ? <AccentLetter>{text}</AccentLetter>
+                  : text
+                : Array.from(text).map((char, charIndex) => {
+                    const LetterTag = index === 1 ? AccentLetter : Letter
+                    return (
+                      <LetterTag
+                        key={`${text}-${charIndex}`}
+                        variants={letterVariants}
+                      >
+                        {char}
+                      </LetterTag>
+                    )
+                  })}
             </Line>
           ))}
         </Headline>
