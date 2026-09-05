@@ -7,12 +7,16 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "remotion": "remotion studio remotion/src/index.ts",
+    "remotion:render": "remotion render remotion/src/index.ts AiGenerateSteps"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@phosphor-icons/react": "^2.1.10",
+    "@remotion/cli": "4.0.521",
+    "@remotion/player": "4.0.521",
     "framer-motion": "^13.2.0",
     "motion": "^13.2.0",
     "react": "^19.2.8",
@@ -21,6 +25,7 @@
     "react-lottie": "^1.2.10",
     "react-scroll": "^1.9.3",
     "react-spring": "^10.0.4",
+    "remotion": "4.0.521",
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
