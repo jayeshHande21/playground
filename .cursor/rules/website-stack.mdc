@@ -1,0 +1,14 @@
+---
+description: 4-piece website stack — Motion + UI UX Max Pro + motion.dev
+alwaysApply: true
+---
+
+# Website build stack
+
+This is a Vite + React + TypeScript app. Follow the 4-piece stack from the setup guide.
+
+- Load the **ui-ux-pro-max** skill before any UI/UX design or implementation.
+- Animate with Motion: `import { motion } from 'motion/react'`. Confirm `motion` is in `package.json` before writing animation code.
+- Prefer adapting a section from https://motion.dev/motion-ui over inventing layout/animation from scratch. Keep the animation; restyle to the design system.
+- Do not default to generic AI-slop layouts (purple gradients, Inter-only type, card grids with stock icons).
+- Respect `prefers-reduced-motion`. No emoji as icons.

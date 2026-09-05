@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
@@ -9,7 +10,12 @@ function App() {
 
   return (
     <>
-      <section id="center">
+      <motion.section
+        id="center"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
@@ -28,7 +34,7 @@ function App() {
         >
           Count is {count}
         </button>
-      </section>
+      </motion.section>
 
       <div className="ticks"></div>
 
