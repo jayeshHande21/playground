@@ -1,23 +1,29 @@
 :root {
-  --color-primary: #18181b;
+  --color-primary: #2b3139;
   --color-on-primary: #ffffff;
-  --color-secondary: #3f3f46;
+  --color-secondary: #3d4d66;
   --color-on-secondary: #ffffff;
-  --color-accent: #ec4899;
-  --color-on-accent: #000000;
-  --color-background: #fafafa;
-  --color-foreground: #09090b;
+  --color-accent: #fdbf36;
+  --color-on-accent: #2b3139;
+  --color-accent-dark: #d0961a;
+  --color-gold-wash: #ffedc6;
+  --color-cream: #faf6ed;
+  --color-action: #139b65;
+  --color-on-action: #ffffff;
+  --color-background: #ffffff;
+  --color-foreground: #2b3139;
   --color-card: #ffffff;
-  --color-card-foreground: #09090b;
-  --color-muted: #e8ecf0;
-  --color-muted-foreground: #475569;
-  --color-border: #e4e4e7;
+  --color-card-foreground: #2b3139;
+  --color-muted: #faf6ed;
+  --color-muted-foreground: #3d4d66;
+  --color-hint: #9ca3af;
+  --color-border: #e5e7eb;
   --color-destructive: #dc2626;
   --color-on-destructive: #ffffff;
-  --color-ring: #18181b;
-  --color-hero: #fafafa;
-  --color-hero-fg: #18181b;
-  --color-hero-muted: #475569;
+  --color-ring: #2b3139;
+  --color-hero: #ffffff;
+  --color-hero-fg: #2b3139;
+  --color-hero-muted: #3d4d66;
 
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -32,8 +38,9 @@
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 
-  --font-heading: 'Outfit', system-ui, sans-serif;
-  --font-body: 'Rubik', system-ui, sans-serif;
+  --font-heading: 'Libre Bodoni', 'Times New Roman', serif;
+  --font-body: 'Public Sans', system-ui, sans-serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
   --radius: 12px;
   --measure: 38ch;
 }
@@ -99,7 +106,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-ring);
   outline-offset: 3px;
 }
 

@@ -19,24 +19,30 @@
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#18181B` | `--color-primary` |
+| Primary | `#2B3139` | `--color-primary` |
 | On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#3F3F46` | `--color-secondary` |
+| Secondary | `#3D4D66` | `--color-secondary` |
 | On Secondary | `#FFFFFF` | `--color-on-secondary` |
-| Accent/CTA | `#EC4899` | `--color-accent` |
-| On Accent/CTA | `#000000` | `--color-on-accent` |
-| Background | `#FAFAFA` | `--color-background` |
-| Foreground | `#09090B` | `--color-foreground` |
+| Accent | `#FDBF36` | `--color-accent` |
+| On Accent | `#2B3139` | `--color-on-accent` |
+| Gold dark | `#D0961A` | `--color-accent-dark` |
+| Gold wash | `#FFEDC6` | `--color-gold-wash` |
+| Cream | `#FAF6ED` | `--color-cream` |
+| Action | `#139B65` | `--color-action` |
+| On Action | `#FFFFFF` | `--color-on-action` |
+| Background | `#FFFFFF` | `--color-background` |
+| Foreground | `#2B3139` | `--color-foreground` |
 | Card | `#FFFFFF` | `--color-card` |
-| Card Foreground | `#09090B` | `--color-card-foreground` |
-| Muted | `#E8ECF0` | `--color-muted` |
-| Muted Foreground | `#475569` | `--color-muted-foreground` |
-| Border | `#E4E4E7` | `--color-border` |
+| Card Foreground | `#2B3139` | `--color-card-foreground` |
+| Muted | `#FAF6ED` | `--color-muted` |
+| Muted Foreground | `#3D4D66` | `--color-muted-foreground` |
+| Hint | `#9CA3AF` | `--color-hint` |
+| Border | `#E5E7EB` | `--color-border` |
 | Destructive | `#DC2626` | `--color-destructive` |
 | On Destructive | `#FFFFFF` | `--color-on-destructive` |
-| Ring | `#18181B` | `--color-ring` |
+| Ring | `#2B3139` | `--color-ring` |
 
-**Color Notes:** Canvas neutral + creative pink
+**Color Notes:** Charcoal + gold + white. Green only on the main action button. No purple or neon.
 
 ### Typography
 
@@ -82,7 +88,7 @@
 ```css
 /* Primary Button */
 .btn-primary {
-  background: #EC4899;
+  background: #139B65;
   color: white;
   padding: 12px 24px;
   border-radius: 8px;

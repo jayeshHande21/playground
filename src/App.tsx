@@ -1,5 +1,6 @@
 import { MotionConfig } from 'motion/react'
 import HeroSection from './components/HeroSection'
+import PointerRing from './components/PointerRing'
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
       <a className="skip" href="#studio">
         Skip to try AI Studio
       </a>
+      <PointerRing />
       <main>
         <HeroSection />
       </main>
