@@ -7,46 +7,73 @@ const looks = [
     id: 'concert',
     label: 'Concert',
     src: '/ai-generate/enhance-concert.jpg',
-    position: 'center 40%',
+    position: 'center 42%',
     copy: 'Open the pit and punch the stage lights. The crowd stays the crowd.',
-    beforeFilter: 'brightness(0.52) contrast(0.88) saturate(0.68) hue-rotate(-10deg)',
-    afterFilter: 'brightness(1.1) contrast(1.22) saturate(1.42) hue-rotate(12deg)',
+    beforeFilter: 'brightness(0.42) contrast(0.82) saturate(0.55) hue-rotate(-14deg)',
+    afterFilter: 'brightness(1.16) contrast(1.28) saturate(1.55) hue-rotate(10deg)',
   },
   {
     id: 'corporate',
     label: 'Corporate',
     src: '/ai-generate/enhance-corporate.jpg',
-    position: 'center 28%',
+    position: 'center 30%',
     copy: 'Even the fluorescents. Skin and slides stay natural — no new look.',
-    beforeFilter: 'brightness(0.8) contrast(0.84) saturate(0.58) grayscale(0.18)',
-    afterFilter: 'brightness(1.08) contrast(1.1) saturate(0.96)',
+    beforeFilter: 'brightness(0.72) contrast(0.78) saturate(0.45) grayscale(0.28)',
+    afterFilter: 'brightness(1.1) contrast(1.14) saturate(1.02)',
   },
   {
     id: 'travel',
     label: 'Travel',
     src: '/ai-generate/enhance-travel.jpg',
-    position: 'center 35%',
-    copy: 'Clear the haze and warm the harbor. The place stays the place.',
-    beforeFilter: 'brightness(0.76) contrast(0.78) saturate(0.62) sepia(0.14)',
-    afterFilter: 'brightness(1.14) contrast(1.12) saturate(1.3) sepia(0.06)',
+    position: 'center 38%',
+    copy: 'Clear the haze and warm the road. The place stays the place.',
+    beforeFilter: 'brightness(0.7) contrast(0.72) saturate(0.5) sepia(0.22)',
+    afterFilter: 'brightness(1.18) contrast(1.16) saturate(1.4) sepia(0.04)',
   },
   {
     id: 'cafe',
     label: 'Cafe',
     src: '/ai-generate/enhance-cafe.jpg',
-    position: 'center 30%',
+    position: 'center 32%',
     copy: 'Lift the counter without killing the tungsten. Faces stay in the room.',
-    beforeFilter: 'brightness(0.58) contrast(0.9) saturate(0.8) sepia(0.2)',
-    afterFilter: 'brightness(1.12) contrast(1.06) saturate(1.12) sepia(0.18) hue-rotate(-8deg)',
+    beforeFilter: 'brightness(0.5) contrast(0.86) saturate(0.7) sepia(0.28)',
+    afterFilter: 'brightness(1.14) contrast(1.1) saturate(1.2) sepia(0.12) hue-rotate(-6deg)',
   },
   {
     id: 'stadium',
-    label: 'Stadium',
+    label: 'Sports',
     src: '/ai-generate/enhance-stadium.jpg',
-    position: 'center 45%',
-    copy: 'Recover dusk in the stands. Floodlights get crisp, not theatrical.',
-    beforeFilter: 'brightness(0.66) contrast(0.82) saturate(0.55)',
-    afterFilter: 'brightness(1.18) contrast(1.24) saturate(1.2)',
+    position: 'center 55%',
+    copy: 'Sharpen the pitch. Grass and leather stay real.',
+    beforeFilter: 'brightness(0.55) contrast(0.76) saturate(0.42)',
+    afterFilter: 'brightness(1.22) contrast(1.3) saturate(1.28)',
+  },
+  {
+    id: 'fashion',
+    label: 'Fashion',
+    src: '/ai-generate/enhance-fashion.jpg',
+    position: 'center 22%',
+    copy: 'Clean skin and fabric. The pose stays the pose.',
+    beforeFilter: 'brightness(0.68) contrast(0.8) saturate(0.52) grayscale(0.12)',
+    afterFilter: 'brightness(1.12) contrast(1.18) saturate(1.15)',
+  },
+  {
+    id: 'city',
+    label: 'City night',
+    src: '/ai-generate/enhance-city.jpg',
+    position: 'center 40%',
+    copy: 'Pull detail out of the dark. Neon stays neon.',
+    beforeFilter: 'brightness(0.4) contrast(0.88) saturate(0.6) hue-rotate(8deg)',
+    afterFilter: 'brightness(1.2) contrast(1.26) saturate(1.45) hue-rotate(-4deg)',
+  },
+  {
+    id: 'kitchen',
+    label: 'Dining',
+    src: '/ai-generate/enhance-kitchen.jpg',
+    position: 'center 35%',
+    copy: 'Warm plates and glass. The room does not become a studio.',
+    beforeFilter: 'brightness(0.58) contrast(0.84) saturate(0.62) sepia(0.16)',
+    afterFilter: 'brightness(1.16) contrast(1.12) saturate(1.25) sepia(0.08)',
   },
 ]
 
@@ -112,12 +139,14 @@ function CompareSlider({
         $position={position}
         $filter={afterFilter}
         alt=""
+        decoding="async"
       />
       <Layer
         src={src}
         $position={position}
         $filter={beforeFilter}
         alt=""
+        decoding="async"
         style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}
       />
 
@@ -161,26 +190,60 @@ function CompareSlider({
 const Section = styled.section`
   position: relative;
   overflow: clip;
-  padding: clamp(3rem, 6vw, 4.5rem) 0 clamp(3.5rem, 7vw, 5rem);
+  padding: clamp(2.5rem, 6vw, 4rem) 0 0;
   background: var(--color-cream);
   color: var(--color-foreground);
 `
 
+const Arch = styled.div`
+  padding: clamp(4.75rem, 11vw, 7.25rem) 0 clamp(3.5rem, 7vw, 5rem);
+  background: var(--color-card);
+  border-radius: 50% 50% 0 0 / clamp(4.5rem, 16vw, 9.5rem) clamp(4.5rem, 16vw, 9.5rem) 0 0;
+`
+
 const Intro = styled(motion.div)`
   display: grid;
+  justify-items: center;
   gap: 0.45rem;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1.35rem;
   padding: 0 clamp(1.25rem, 4vw, 2.5rem);
   text-align: center;
 `
 
-const Eyebrow = styled.p`
-  margin: 0;
+const Badge = styled.p`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.35rem;
+  padding: 0.28rem 0.7rem 0.28rem 0.85rem;
+  border-radius: 999px;
+  background: var(--color-cream);
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent-dark);
+`
+
+const BadgeMark = styled.span`
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+`
+
+const Rail = styled.div`
+  width: 0;
+  height: 2.25rem;
+  margin: 0.85rem auto 0;
+  border-left: 1.5px dashed color-mix(in srgb, var(--color-accent) 70%, var(--color-border));
+`
+
+const RailDot = styled.span`
+  display: block;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin: -0.2rem 0 0 -0.42rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 22%, transparent);
 `
 
 const Title = styled.h2`
@@ -228,10 +291,10 @@ const Tab = styled.button<{ $active: boolean }>`
 
 const Carousel = styled.div`
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 58rem) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 68rem) minmax(0, 1fr);
   align-items: center;
   gap: 0.75rem;
-  min-height: min(62vw, 34rem);
+  min-height: min(64vw, 38rem);
 `
 
 const Peek = styled.button<{ $side: 'left' | 'right' }>`
@@ -266,7 +329,7 @@ const Stage = styled(motion.div)`
 const Compare = styled.div`
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   border-radius: 20px;
   background: var(--color-primary);
   cursor: ew-resize;
@@ -281,6 +344,7 @@ const Layer = styled.img<{ $position: string; $filter: string }>`
   height: 100%;
   object-fit: cover;
   object-position: ${(props) => props.$position};
+  image-rendering: high-quality;
   filter: ${(props) => props.$filter};
   pointer-events: none;
 `
@@ -381,18 +445,25 @@ export default function AiEnhance() {
 
   return (
     <Section id="enhance" aria-labelledby="enhance-title">
+      <Arch>
       <Intro
         initial={reduceMotion ? false : { opacity: 0, y: 14 }}
         whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.4, ease: easeOut }}
       >
-        <Eyebrow>AI Enhance</Eyebrow>
+        <Badge>
+          AI Enhance
+          <BadgeMark aria-hidden="true" />
+        </Badge>
         <Title id="enhance-title">Keep the photo. Lift it.</Title>
         <Lede>
           Drag to compare. Generate changes the look. Enhance keeps the people
           and cleans the frame.
         </Lede>
+        <Rail aria-hidden="true">
+          <RailDot />
+        </Rail>
       </Intro>
 
       <Tabs role="tablist" aria-label="Enhance examples">
@@ -418,7 +489,7 @@ export default function AiEnhance() {
           aria-label={`Show ${prev.label}`}
           onClick={() => setIndex((index - 1 + looks.length) % looks.length)}
         >
-          <img src={prev.src} alt="" />
+          <img src={prev.src} alt="" style={{ objectPosition: prev.position }} />
         </Peek>
 
         <Stage
@@ -443,9 +514,10 @@ export default function AiEnhance() {
           aria-label={`Show ${next.label}`}
           onClick={() => setIndex((index + 1) % looks.length)}
         >
-          <img src={next.src} alt="" />
+          <img src={next.src} alt="" style={{ objectPosition: next.position }} />
         </Peek>
       </Carousel>
+      </Arch>
     </Section>
   )
 }
