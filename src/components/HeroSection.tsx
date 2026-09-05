@@ -570,7 +570,6 @@ export default function HeroSection() {
         <Actions variants={reduceMotion ? undefined : itemVariants}>
           <Magnetic>
             <PrimaryCta
-              id="studio"
               href="#studio"
               data-cursor="action"
               aria-label="Start Creating"

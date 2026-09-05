@@ -2,6 +2,7 @@ import { MotionConfig } from 'motion/react'
 import HeroSection from './components/HeroSection'
 import HowItWorks from './components/HowItWorks'
 import AiEnhance from './components/AiEnhance'
+import WorkflowClose from './components/WorkflowClose'
 import PointerRing from './components/PointerRing'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <HeroSection />
         <HowItWorks />
         <AiEnhance />
+        <WorkflowClose />
       </main>
     </MotionConfig>
   )
