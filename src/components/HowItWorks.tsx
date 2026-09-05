@@ -38,15 +38,15 @@ const easeOut = [0.22, 1, 0.36, 1] as const
 const Section = styled.section`
   position: relative;
   overflow: hidden;
-  padding: clamp(4rem, 8vw, 6.5rem) clamp(1.25rem, 4vw, 2.5rem);
+  padding: var(--section-pad-y) var(--page-gutter);
   background: var(--color-cream);
   color: var(--color-foreground);
 `
 
 const ParallaxWash = styled(motion.div)`
   position: absolute;
-  width: min(34rem, 70vw);
-  height: min(34rem, 70vw);
+  width: min(42rem, 46vw);
+  height: min(42rem, 46vw);
   border-radius: 50%;
   background: radial-gradient(
     circle,
@@ -60,7 +60,7 @@ const ParallaxWash = styled(motion.div)`
 const Inner = styled.div`
   position: relative;
   z-index: 1;
-  max-width: 76rem;
+  max-width: var(--page-max);
   margin: 0 auto;
 `
 
@@ -78,6 +78,18 @@ const Panel = styled.div`
     align-items: center;
     gap: 2.25rem;
     padding: 1.75rem 1.75rem 1.75rem 2rem;
+  }
+
+  @media (min-width: 1800px) {
+    grid-template-columns: minmax(26rem, 36rem) minmax(0, 1fr);
+    gap: 3rem;
+    padding: 2.35rem 2.5rem 2.35rem 2.85rem;
+  }
+
+  @media (min-width: 2400px) {
+    grid-template-columns: minmax(30rem, 42rem) minmax(0, 1fr);
+    gap: 3.5rem;
+    padding: 2.75rem 3rem;
   }
 `
 
@@ -103,6 +115,10 @@ const Title = styled.h2`
   font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.12;
+
+  @media (min-width: 1800px) {
+    font-size: clamp(2.6rem, 2.2vw, 3.4rem);
+  }
 `
 
 const Lede = styled.p`
@@ -162,6 +178,10 @@ const StepCard = styled(motion.button)<{ $active: boolean }>`
     outline: 2px solid var(--color-ring);
     outline-offset: 3px;
   }
+
+  @media (min-width: 1800px) {
+    grid-template-columns: minmax(0, 1fr) 4.25rem;
+  }
 `
 
 const Node = styled.span<{ $active: boolean }>`
@@ -213,6 +233,11 @@ const LookImage = styled.img<{ $position?: string }>`
   display: block;
   width: 3.35rem;
   height: 3.35rem;
+
+  @media (min-width: 1800px) {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
   object-fit: cover;
   object-position: ${(props) => props.$position ?? 'center'};
   border: 1px solid var(--color-border);

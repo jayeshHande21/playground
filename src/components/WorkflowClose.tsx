@@ -66,13 +66,13 @@ function OwlMark() {
 const Section = styled.section`
   position: relative;
   overflow: clip;
-  padding: clamp(4rem, 8vw, 6.5rem) clamp(1.25rem, 4vw, 2.5rem);
+  padding: var(--section-pad-y) var(--page-gutter);
   background: var(--color-cream);
   color: var(--color-foreground);
 `
 
 const Inner = styled.div`
-  max-width: 76rem;
+  max-width: var(--page-max);
   margin: 0 auto;
 `
 
@@ -91,6 +91,16 @@ const Board = styled.div`
     align-items: center;
     gap: 1.75rem;
     padding: 1.75rem 1.5rem 1.75rem 2rem;
+  }
+
+  @media (min-width: 1800px) {
+    gap: 3rem;
+    padding: 2.5rem 2.25rem 2.5rem 3rem;
+  }
+
+  @media (min-width: 2400px) {
+    gap: 4rem;
+    padding: 3rem 2.75rem 3rem 3.5rem;
   }
 `
 
@@ -126,6 +136,10 @@ const Title = styled(motion.h2)`
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 0.92;
+
+  @media (min-width: 1800px) {
+    font-size: clamp(3.6rem, 3.4vw, 5rem);
+  }
 `
 
 const Word = styled(motion.span)<{ $gold?: boolean }>`
@@ -149,6 +163,10 @@ const MarkWrap = styled(motion.div)`
 const MarkSvg = styled.svg`
   width: 6.25rem;
   height: auto;
+
+  @media (min-width: 1800px) {
+    width: 7.5rem;
+  }
 `
 
 const Track = styled.div<{ $static?: boolean; $reverse?: boolean; $duration: number }>`
@@ -178,6 +196,10 @@ const Rails = styled.div`
     justify-content: end;
   }
 
+  @media (min-width: 1800px) {
+    gap: 0.9rem;
+  }
+
   &:hover ${Track},
   &:focus-within ${Track} {
     animation-play-state: paused;
@@ -199,6 +221,16 @@ const Viewport = styled.div<{ $static?: boolean }>`
   @media (min-width: 880px) {
     width: 7.2rem;
     height: 24rem;
+  }
+
+  @media (min-width: 1800px) {
+    width: 8.75rem;
+    height: 30rem;
+  }
+
+  @media (min-width: 2400px) {
+    width: 10.25rem;
+    height: 36rem;
   }
 `
 
@@ -231,6 +263,16 @@ const Photo = styled.img`
   @media (min-width: 880px) {
     width: 6.75rem;
     height: 8.35rem;
+  }
+
+  @media (min-width: 1800px) {
+    width: 8.25rem;
+    height: 10.2rem;
+  }
+
+  @media (min-width: 2400px) {
+    width: 9.75rem;
+    height: 12rem;
   }
 `
 

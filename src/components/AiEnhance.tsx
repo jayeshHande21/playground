@@ -191,6 +191,10 @@ const Section = styled.section`
   position: relative;
   overflow: clip;
   padding: clamp(2.5rem, 6vw, 4rem) 0 0;
+
+  @media (min-width: 1800px) {
+    padding-top: clamp(3.5rem, 5vw, 5.5rem);
+  }
   background: var(--color-cream);
   color: var(--color-foreground);
 `
@@ -199,6 +203,11 @@ const Arch = styled.div`
   padding: clamp(4.75rem, 11vw, 7.25rem) 0 clamp(3.5rem, 7vw, 5rem);
   background: var(--color-card);
   border-radius: 50% 50% 0 0 / clamp(4.5rem, 16vw, 9.5rem) clamp(4.5rem, 16vw, 9.5rem) 0 0;
+
+  @media (min-width: 1800px) {
+    padding: clamp(6rem, 8vw, 9rem) 0 clamp(4.5rem, 6vw, 6.5rem);
+    border-radius: 50% 50% 0 0 / clamp(7rem, 12vw, 12rem) clamp(7rem, 12vw, 12rem) 0 0;
+  }
 `
 
 const Intro = styled(motion.div)`
@@ -206,7 +215,7 @@ const Intro = styled(motion.div)`
   justify-items: center;
   gap: 0.45rem;
   margin: 0 auto 1.35rem;
-  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  padding: 0 var(--page-gutter);
   text-align: center;
 `
 
@@ -251,6 +260,10 @@ const Title = styled.h2`
   font-size: clamp(2rem, 4vw, 2.85rem);
   font-weight: 700;
   letter-spacing: -0.035em;
+
+  @media (min-width: 1800px) {
+    font-size: clamp(3rem, 2.6vw, 3.75rem);
+  }
 `
 
 const Lede = styled.p`
@@ -267,7 +280,7 @@ const Tabs = styled.div`
   justify-content: center;
   gap: 0.55rem;
   margin: 0 auto 1.5rem;
-  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  padding: 0 var(--page-gutter);
 `
 
 const Tab = styled.button<{ $active: boolean }>`
@@ -295,11 +308,30 @@ const Carousel = styled.div`
   align-items: center;
   gap: 0.75rem;
   min-height: min(64vw, 38rem);
+
+  @media (min-width: 1800px) {
+    grid-template-columns: minmax(0, 1fr) minmax(40rem, 92rem) minmax(0, 1fr);
+    gap: 1rem;
+    min-height: min(46vw, 48rem);
+  }
+
+  @media (min-width: 2400px) {
+    grid-template-columns: minmax(0, 1fr) minmax(48rem, 110rem) minmax(0, 1fr);
+    min-height: min(40vw, 56rem);
+  }
 `
 
 const Peek = styled.button<{ $side: 'left' | 'right' }>`
   overflow: hidden;
   height: min(48vw, 26rem);
+
+  @media (min-width: 1800px) {
+    height: min(34vw, 34rem);
+  }
+
+  @media (min-width: 2400px) {
+    height: min(28vw, 40rem);
+  }
   margin-inline: ${(props) => (props.$side === 'left' ? '0 0' : '0 0')};
   padding: 0;
   border: 0;

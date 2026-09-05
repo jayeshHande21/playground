@@ -110,7 +110,7 @@ const Texture = styled.div`
 const Top = styled.header`
   position: relative;
   z-index: 1;
-  padding: 1.35rem clamp(1.5rem, 5vw, 2.75rem) 0;
+  padding: 1.35rem var(--hero-gutter) 0;
 `
 
 const Wordmark = styled(motion.p)`
@@ -122,6 +122,14 @@ const Wordmark = styled(motion.p)`
   letter-spacing: -0.055em;
   text-align: center;
   color: var(--color-primary);
+
+  @media (min-width: 1800px) {
+    font-size: clamp(9.5rem, 11.5vw, 13.5rem);
+  }
+
+  @media (min-width: 2400px) {
+    font-size: clamp(12rem, 10vw, 16rem);
+  }
 `
 
 const Nav = styled(motion.nav)`
@@ -132,7 +140,7 @@ const Nav = styled(motion.nav)`
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
-  padding: 0.85rem clamp(1.5rem, 5vw, 2.75rem);
+  padding: 0.85rem var(--hero-gutter);
   background: color-mix(in srgb, var(--color-background) 78%, transparent);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--color-border);
@@ -219,8 +227,16 @@ const Main = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 2.25rem clamp(1.25rem, 4vw, 3rem) 1.5rem;
+  max-width: var(--page-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.25rem var(--hero-gutter) 1.5rem;
   text-align: center;
+
+  @media (min-width: 1800px) {
+    padding-top: 3.25rem;
+    padding-bottom: 2rem;
+  }
 `
 
 const Headline = styled(motion.h1)`
@@ -231,6 +247,10 @@ const Headline = styled(motion.h1)`
   line-height: 1.1;
   letter-spacing: -0.03em;
   text-wrap: balance;
+
+  @media (min-width: 1800px) {
+    font-size: clamp(4.5rem, 4.2vw, 6.25rem);
+  }
 `
 
 const Line = styled(motion.span)`
@@ -260,6 +280,11 @@ const Lede = styled(motion.p)`
   font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--color-muted-foreground);
+
+  @media (min-width: 1800px) {
+    max-width: 40ch;
+    font-size: 1.2rem;
+  }
 `
 
 const Actions = styled(motion.div)`
@@ -410,11 +435,20 @@ const Group = styled.ul`
   margin: 0;
   padding: 0.75rem 2.375rem;
   list-style: none;
+
+  @media (min-width: 1800px) {
+    gap: 6.5rem;
+    padding: 0.95rem 3.5rem;
+  }
 `
 
 const Look = styled.li`
   font-family: var(--font-heading);
   font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+
+  @media (min-width: 1800px) {
+    font-size: clamp(1.25rem, 1.2vw, 1.7rem);
+  }
   font-weight: 500;
   letter-spacing: 0.01em;
   white-space: nowrap;

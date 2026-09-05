@@ -43,6 +43,34 @@
   --font-display: 'Outfit', system-ui, sans-serif;
   --radius: 12px;
   --measure: 38ch;
+  --page-max: 76rem;
+  --page-gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-pad-y: clamp(4rem, 8vw, 6.5rem);
+  --hero-gutter: clamp(1.5rem, 5vw, 2.75rem);
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --page-max: 100rem;
+    --page-gutter: clamp(2.25rem, 3.5vw, 5rem);
+    --section-pad-y: clamp(5.5rem, 6vw, 8.5rem);
+    --hero-gutter: clamp(2.5rem, 4vw, 5.5rem);
+  }
+}
+
+@media (min-width: 2400px) {
+  :root {
+    --page-max: 128rem;
+    --page-gutter: clamp(3rem, 4vw, 7rem);
+    --section-pad-y: clamp(6.5rem, 5.5vw, 10rem);
+    --hero-gutter: clamp(3rem, 4.5vw, 7rem);
+  }
+}
+
+@media (min-width: 3200px) {
+  :root {
+    --page-max: min(160rem, 70vw);
+  }
 }
 
 *,
