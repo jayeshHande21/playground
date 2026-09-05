@@ -1,42 +1,41 @@
 :root {
-  --color-primary: #7c3aed;
+  --color-primary: #18181b;
   --color-on-primary: #ffffff;
-  --color-secondary: #6366f1;
-  --color-on-secondary: #000000;
+  --color-secondary: #3f3f46;
+  --color-on-secondary: #ffffff;
   --color-accent: #ec4899;
   --color-on-accent: #000000;
-  --color-background: #faf5ff;
-  --color-foreground: #0f172a;
+  --color-background: #fafafa;
+  --color-foreground: #09090b;
   --color-card: #ffffff;
-  --color-card-foreground: #0f172a;
-  --color-muted: #f7f3fd;
+  --color-card-foreground: #09090b;
+  --color-muted: #e8ecf0;
   --color-muted-foreground: #475569;
-  --color-border: #efe7fc;
+  --color-border: #e4e4e7;
   --color-destructive: #dc2626;
   --color-on-destructive: #ffffff;
-  --color-ring: #7c3aed;
-  --color-hero: #0f172a;
-  --color-hero-fg: #faf5ff;
-  --color-hero-muted: #cbd5e1;
+  --color-ring: #18181b;
+  --color-hero: #fafafa;
+  --color-hero-fg: #18181b;
+  --color-hero-muted: #475569;
 
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  --header-h: 4.5rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
 
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 6px rgba(15, 23, 42, 0.1);
-  --shadow-lg: 0 10px 15px rgba(15, 23, 42, 0.1);
-  --shadow-xl: 0 20px 25px rgba(15, 23, 42, 0.15);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-heading: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Rubik', system-ui, sans-serif;
   --radius: 12px;
-  --measure: 68ch;
+  --measure: 38ch;
 }
 
 *,
@@ -77,8 +76,7 @@ h3 {
   font-family: var(--font-heading);
   font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 1.12;
-  color: var(--color-foreground);
+  line-height: 1.08;
   margin: 0;
 }
 
@@ -101,7 +99,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ring);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 
@@ -131,9 +129,4 @@ a {
 
 .skip:focus {
   transform: none;
-}
-
-section[id],
-#top {
-  scroll-margin-top: calc(var(--header-h) + var(--space-md));
 }
