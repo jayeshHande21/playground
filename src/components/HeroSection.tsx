@@ -511,8 +511,8 @@ export default function HeroSection() {
         }}
       >
         <NavLinks>
-          <NavLink href="#how-it-works">How it works</NavLink>
-          <NavLink href="#styles">Looks</NavLink>
+          <NavLink href="#how-it-works">AI Generate</NavLink>
+          <NavLink href="#enhance">AI Enhance</NavLink>
           <NavLink href="#studio">Workflow</NavLink>
         </NavLinks>
         <Magnetic>
