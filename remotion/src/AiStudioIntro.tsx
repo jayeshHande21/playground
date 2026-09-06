@@ -1,12 +1,11 @@
-import type { CSSProperties } from 'react'
-import { AbsoluteFill, Img, interpolate, useCurrentFrame } from 'remotion'
-import { Cover } from './Cover'
+import type { CSSProperties, ReactNode } from 'react'
+import { AbsoluteFill, Audio, Img, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion'
 import { media } from './media'
 import { colors, fonts } from './theme'
 
 export const INTRO_FPS = 30
 export const INTRO_WIDTH = 1280
-export const INTRO_HEIGHT = 720
+export const INTRO_HEIGHT = 500
 export const INTRO_DURATION = 600
 
 function clamp(frame: number, start: number, end: number) {
@@ -16,7 +15,7 @@ function clamp(frame: number, start: number, end: number) {
   })
 }
 
-function sceneOpacity(frame: number, start: number, end: number, fade = 8) {
+function sceneOpacity(frame: number, start: number, end: number, fade = 6) {
   if (end >= INTRO_DURATION) {
     return interpolate(frame, [start, start + fade], [0, 1], {
       extrapolateLeft: 'clamp',
@@ -29,7 +28,7 @@ function sceneOpacity(frame: number, start: number, end: number, fade = 8) {
   })
 }
 
-function typeOut(text: string, frame: number, start: number, perChar = 2) {
+function typeOut(text: string, frame: number, start: number, perChar = 1.4) {
   const count = Math.round(
     interpolate(frame, [start, start + text.length * perChar], [0, text.length], {
       extrapolateLeft: 'clamp',
@@ -39,390 +38,740 @@ function typeOut(text: string, frame: number, start: number, perChar = 2) {
   return text.slice(0, count)
 }
 
-function Meta({ light }: { light?: boolean }) {
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        top: 28,
-        right: 36,
-        textAlign: 'right',
-        fontFamily: fonts.mono,
-        fontSize: 11,
-        letterSpacing: '0.08em',
-        lineHeight: 1.45,
-        color: light ? 'rgba(45, 38, 32, 0.55)' : 'rgba(253, 191, 54, 0.72)',
-      }}
-    >
-      AI STUDIO
-      <br />
-      GENERATE + ENHANCE — 2026
-    </div>
-  )
+function pop(frame: number, at: number) {
+  return spring({
+    frame: frame - at,
+    fps: INTRO_FPS,
+    config: { damping: 14, stiffness: 180 },
+  })
 }
 
-function Spark() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-      <path
-        d="M9 1 L10.1 7 L16 6.4 L11.2 9.4 L16 13.2 L10.1 11.2 L9 17 L7.9 11.2 L2 13.2 L6.8 9.4 L2 6.4 L7.9 7 Z"
-        fill={colors.action}
-      />
-    </svg>
-  )
-}
-
-function Corners() {
-  const arm = 22
-  const inset = 22
-  const bar: CSSProperties = {
-    position: 'absolute',
-    background: 'rgba(253, 191, 54, 0.55)',
-  }
+function Chrome() {
   return (
     <>
-      <span style={{ ...bar, top: inset, left: inset, width: arm, height: 1 }} />
-      <span style={{ ...bar, top: inset, left: inset, width: 1, height: arm }} />
-      <span style={{ ...bar, top: inset, right: inset, width: arm, height: 1 }} />
-      <span style={{ ...bar, top: inset, right: inset, width: 1, height: arm }} />
-      <span style={{ ...bar, bottom: inset, left: inset, width: arm, height: 1 }} />
-      <span style={{ ...bar, bottom: inset, left: inset, width: 1, height: arm }} />
-      <span style={{ ...bar, bottom: inset, right: inset, width: arm, height: 1 }} />
-      <span style={{ ...bar, bottom: inset, right: inset, width: 1, height: arm }} />
+      <div
+        style={{
+          position: 'absolute',
+          top: 22,
+          left: 40,
+          zIndex: 8,
+          color: colors.gold,
+          fontFamily: fonts.display,
+          fontSize: 16,
+          fontWeight: 800,
+          letterSpacing: '-0.03em',
+        }}
+      >
+        AI Studio
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          top: 26,
+          right: 40,
+          zIndex: 8,
+          color: colors.cream,
+          fontFamily: fonts.mono,
+          fontSize: 12,
+          fontWeight: 500,
+          letterSpacing: '0.08em',
+        }}
+      >
+        Generate + Enhance
+      </div>
     </>
   )
 }
 
-function Rings({ scale }: { scale: number }) {
+function SweepTicker({
+  frame,
+  text,
+  direction,
+  y,
+  start = 8,
+  hold = 40,
+}: {
+  frame: number
+  text: string
+  direction: 'rtl' | 'ltr'
+  y: number
+  start?: number
+  hold?: number
+}) {
+  const t = interpolate(frame, [start, start + hold], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  })
+  const x =
+    direction === 'rtl'
+      ? interpolate(t, [0, 1], [INTRO_WIDTH * 0.08, -INTRO_WIDTH * 0.16])
+      : interpolate(t, [0, 1], [-INTRO_WIDTH * 0.08, INTRO_WIDTH * 0.16])
+  const opacity = interpolate(frame, [start, start + 6, start + hold - 10, start + hold], [0, 0.38, 0.38, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  })
+
   return (
     <div
       style={{
         position: 'absolute',
-        right: -180,
-        top: '50%',
-        width: 620,
-        height: 620,
-        transform: `translateY(-50%) scale(${scale})`,
+        top: y,
+        left: 40,
+        right: 40,
+        overflow: 'hidden',
+        height: 22,
         pointerEvents: 'none',
+        zIndex: 7,
       }}
     >
-      {[620, 460, 300, 160].map((size) => (
-        <div
-          key={size}
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            width: size,
-            height: size,
-            margin: `${-size / 2}px 0 0 ${-size / 2}px`,
-            border: '1px solid rgba(253, 191, 54, 0.18)',
-            borderRadius: '50%',
-          }}
-        />
-      ))}
+      <div
+        style={{
+          whiteSpace: 'nowrap',
+          color: colors.steel,
+          fontFamily: fonts.mono,
+          fontSize: 11,
+          fontWeight: 500,
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          opacity,
+          transform: `translateX(${x}px)`,
+        }}
+      >
+        {text}
+      </div>
     </div>
   )
 }
 
-function MethodCard({ frame }: { frame: number }) {
-  const typed = typeOut('ESSENCE', frame, 18, 2)
-  const caretOn = Math.floor(frame / 8) % 2 === 0
-  const ring = interpolate(frame, [0, 70], [0.86, 1.04], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  })
-
-  return (
-    <AbsoluteFill style={{ backgroundColor: colors.ink, fontFamily: fonts.display }}>
-      <Rings scale={ring} />
-      <Corners />
-      <Meta />
-      <div
-        style={{
-          position: 'absolute',
-          right: 28,
-          top: 120,
-        }}
-      >
-        <Spark />
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          left: 72,
-          bottom: 88,
-          color: colors.white,
-        }}
-      >
-        <div
-          style={{
-            fontSize: 72,
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
-            lineHeight: 0.92,
-            color: 'rgba(250, 246, 237, 0.72)',
-          }}
-        >
-          THE LOOK
-        </div>
-        <div
-          style={{
-            fontSize: 72,
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
-            lineHeight: 0.92,
-            color: colors.gold,
-          }}
-        >
-          {typed}
-          <span style={{ opacity: caretOn ? 1 : 0 }}>|</span>
-        </div>
-      </div>
-    </AbsoluteFill>
-  )
-}
-
-function GhostType({ frame }: { frame: number }) {
-  const lock = interpolate(frame, [8, 28], [16, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  })
-  const second = clamp(frame, 36, 52)
-
+function Stage({
+  children,
+  frame,
+  topLine,
+  bottomLine,
+}: {
+  children: ReactNode
+  frame: number
+  topLine: string
+  bottomLine: string
+}) {
   return (
     <AbsoluteFill
       style={{
-        overflow: 'hidden',
         backgroundColor: colors.ink,
         fontFamily: fonts.display,
+        color: colors.cream,
       }}
     >
-      <Meta />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          left: '-6%',
-          top: '-18%',
-          width: '120%',
-          color: 'transparent',
-          WebkitTextStroke: `2.5px ${colors.gold}`,
-          fontSize: 248,
-          fontWeight: 800,
-          letterSpacing: '-0.07em',
-          lineHeight: 0.82,
-          textTransform: 'lowercase',
-        }}
-      >
-        studio
-        <br />
-        studio
-      </div>
+      <Chrome />
+      <SweepTicker frame={frame} text={topLine} direction="rtl" y={52} />
+      <SweepTicker frame={frame} text={bottomLine} direction="ltr" y={INTRO_HEIGHT - 42} />
       <div
         style={{
           position: 'absolute',
-          left: 0,
-          right: 0,
-          top: '46%',
-          textAlign: 'center',
-          color: colors.gold,
-          fontSize: 42,
-          fontWeight: 600,
-          letterSpacing: '-0.03em',
-          transform: `translateY(${lock}px)`,
+          top: 78,
+          right: 36,
+          bottom: 48,
+          left: 36,
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
-        {second > 0.5 ? 'render it.' : 'imagine it.'}
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          right: 28,
-          top: 120,
-          opacity: clamp(frame, 10, 22),
-        }}
-      >
-        <Spark />
+        {children}
       </div>
     </AbsoluteFill>
   )
 }
 
-function TwoPaths({ frame }: { frame: number }) {
-  const bars = clamp(frame, 12, 28)
-
+function FactGrid({ children }: { children: ReactNode }) {
   return (
-    <AbsoluteFill
+    <div
       style={{
-        backgroundColor: colors.steel,
-        backgroundImage:
-          'repeating-linear-gradient(0deg, rgba(20, 18, 16, 0.1) 0px, rgba(20, 18, 16, 0.1) 1px, transparent 1px, transparent 3px)',
-        fontFamily: fonts.mono,
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr',
+        columnGap: 18,
+        rowGap: 16,
+        width: '100%',
       }}
     >
-      <Meta light />
+      {children}
+    </div>
+  )
+}
+
+function Split({
+  frame,
+  left,
+  right,
+}: {
+  frame: number
+  left: ReactNode
+  right: ReactNode
+}) {
+  const rule = pop(frame, 8)
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 28, width: '100%' }}>
+      <div style={{ flex: '0 0 36%', minWidth: 0 }}>{left}</div>
       <div
         style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 22,
-          color: colors.goldDark,
+          width: 1.5,
+          height: interpolate(rule, [0, 1], [0, 200]),
+          background: 'rgba(253, 191, 54, 0.55)',
+          flexShrink: 0,
         }}
-      >
-        <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: '0.02em' }}>
-          two paths
-        </div>
-        <div style={{ display: 'flex', gap: 14, transform: `scaleY(${0.2 + bars * 0.8})` }}>
-          <div style={{ width: 18, height: 72, background: colors.goldDark }} />
-          <div style={{ width: 18, height: 72, background: colors.goldDark }} />
-        </div>
+      />
+      <div style={{ flex: 1, minWidth: 0 }}>{right}</div>
+    </div>
+  )
+}
+
+function Rise({
+  frame,
+  at,
+  children,
+  style,
+}: {
+  frame: number
+  at: number
+  children: ReactNode
+  style?: CSSProperties
+}) {
+  const enter = pop(frame, at)
+  return (
+    <div
+      style={{
+        opacity: enter,
+        transform: `translateY(${interpolate(enter, [0, 1], [22, 0])}px)`,
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function SlideIn({
+  frame,
+  at,
+  from = 'right',
+  children,
+}: {
+  frame: number
+  at: number
+  from?: 'left' | 'right'
+  children: ReactNode
+}) {
+  const enter = pop(frame, at)
+  const x = from === 'right' ? 28 : -28
+  return (
+    <div
+      style={{
+        opacity: enter,
+        transform: `translateX(${interpolate(enter, [0, 1], [x, 0])}px)`,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function Words({
+  text,
+  frame,
+  at,
+  gold,
+  from = 'up',
+}: {
+  text: string
+  frame: number
+  at: number
+  gold?: boolean
+  from?: 'up' | 'left' | 'right'
+}) {
+  return (
+    <div
+      style={{
+        color: gold ? colors.gold : colors.cream,
+        fontSize: 46,
+        fontWeight: 800,
+        letterSpacing: '-0.045em',
+        lineHeight: 0.98,
+      }}
+    >
+      {text.split(' ').map((word, index) => {
+        const enter = pop(frame, at + index * 5)
+        const dx = from === 'left' ? -20 : from === 'right' ? 20 : 0
+        const dy = from === 'up' ? 20 : 0
+        return (
+          <span
+            key={`${word}-${index}`}
+            style={{
+              display: 'inline-block',
+              marginRight: '0.28em',
+              opacity: enter,
+              transform: `translate(${interpolate(enter, [0, 1], [dx, 0])}px, ${interpolate(enter, [0, 1], [dy, 0])}px)`,
+            }}
+          >
+            {word}
+          </span>
+        )
+      })}
+    </div>
+  )
+}
+
+function Eyebrow({ children }: { children: ReactNode }) {
+  return (
+    <div
+      style={{
+        marginBottom: 12,
+        color: colors.gold,
+        fontFamily: fonts.mono,
+        fontSize: 13,
+        fontWeight: 500,
+        letterSpacing: '0.18em',
+        textTransform: 'uppercase',
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function Support({ children }: { children: ReactNode }) {
+  return (
+    <div
+      style={{
+        marginTop: 14,
+        color: 'rgba(250, 246, 237, 0.78)',
+        fontFamily: fonts.body,
+        fontSize: 18,
+        fontWeight: 500,
+        lineHeight: 1.35,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function AsideItem({ num, title, body }: { num?: string; title: string; body?: string }) {
+  return (
+    <div>
+      {num ? (
         <div
           style={{
-            display: 'flex',
-            gap: 28,
+            marginBottom: 4,
+            color: colors.gold,
+            fontFamily: fonts.mono,
             fontSize: 11,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            opacity: bars,
+            letterSpacing: '0.14em',
           }}
         >
-          <span>Generate</span>
-          <span>Enhance</span>
+          {num}
         </div>
+      ) : null}
+      <div
+        style={{
+          fontSize: 18,
+          fontWeight: 700,
+          letterSpacing: '-0.03em',
+          lineHeight: 1.15,
+        }}
+      >
+        {title}
       </div>
-    </AbsoluteFill>
+      {body ? (
+        <div
+          style={{
+            marginTop: 4,
+            color: 'rgba(250, 246, 237, 0.68)',
+            fontFamily: fonts.body,
+            fontSize: 15,
+            lineHeight: 1.35,
+          }}
+        >
+          {body}
+        </div>
+      ) : null}
+    </div>
   )
 }
 
-const stills = [
-  { src: media.watercolor, label: 'Generate', position: 'center top' },
-  { src: media.royal, label: 'Generate', position: 'center 8%' },
-  { src: media.enhanceConcert, label: 'Enhance', position: 'center 42%' },
-  { src: media.enhanceTravel, label: 'Enhance', position: 'center 38%' },
-] as const
+const titleAside = [
+  ['01', 'Generate', 'Change the look.'],
+  ['02', 'Enhance', 'Keep the people.'],
+  ['03', 'Delivery', 'Same day, in the event.'],
+  ['04', 'Preview', 'See it before you send.'],
+  ['05', 'Prompt → frame', 'One studio, one pass.'],
+  ['06', 'No new tab', 'Stay in the workflow.'],
+]
 
-function FeatureBoard({ frame }: { frame: number }) {
+function TitleCard({ frame }: { frame: number }) {
+  const scale = interpolate(pop(frame, 4), [0, 1], [0.94, 1])
+  const rule = clamp(frame, 16, 28)
+  const typed = typeOut('Turn a prompt into a finished visual.', frame, 26, 1.1)
+  const caretOn = frame >= 26 && Math.floor(frame / 7) % 2 === 0
+
   return (
-    <AbsoluteFill style={{ backgroundColor: colors.ink, fontFamily: fonts.body }}>
-      <Meta />
-      <div
-        style={{
-          position: 'absolute',
-          inset: '72px 48px 48px',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gridTemplateRows: '1fr 1fr',
-          gap: 12,
-        }}
-      >
-        {stills.map((still, index) => {
-          const enter = clamp(frame, 6 + index * 8, 20 + index * 8)
-          return (
+    <Stage
+      frame={frame}
+      topLine="Imagine it. Render it."
+      bottomLine="FotoOwl AI Studio"
+    >
+      <Split
+        frame={frame}
+        left={
+          <div style={{ transform: `scale(${scale})`, transformOrigin: 'left center' }}>
+            <Eyebrow>FotoOwl</Eyebrow>
+            <Words text="AI Studio" frame={frame} at={6} gold from="left" />
             <div
-              key={still.label + still.src}
               style={{
-                position: 'relative',
-                overflow: 'hidden',
-                opacity: enter,
-                transform: `translateY(${interpolate(enter, [0, 1], [16, 0])}px)`,
+                width: interpolate(rule, [0, 1], [0, 180]),
+                height: 3,
+                marginTop: 16,
+                background: colors.gold,
               }}
-            >
-              <Cover src={still.src} position={still.position} />
-              <span
+            />
+            <Support>
+              {typed}
+              <span style={{ color: colors.gold, opacity: caretOn ? 1 : 0 }}>|</span>
+            </Support>
+          </div>
+        }
+        right={
+          <FactGrid>
+            {titleAside.map(([num, title, body], index) => (
+              <SlideIn key={title} frame={frame} at={16 + index * 6}>
+                <AsideItem num={num} title={title} body={body} />
+              </SlideIn>
+            ))}
+          </FactGrid>
+        }
+      />
+    </Stage>
+  )
+}
+
+function ManifestoCard({ frame }: { frame: number }) {
+  const second = clamp(frame, 22, 28)
+
+  return (
+    <Stage
+      frame={frame}
+      topLine="From the gallery"
+      bottomLine="Stay in the event"
+    >
+      <Split
+        frame={frame}
+        left={
+          <>
+            <Words text="Imagine it." frame={frame} at={2} from="up" />
+            <Words text="Render it." frame={frame} at={16} gold from="up" />
+          </>
+        }
+        right={
+          <FactGrid>
+            {[
+              ['01', 'Gallery to frame', 'Pick a still. Open Studio. Finish in place.'],
+              ['02', second > 0.5 ? 'Stay in the event' : 'From the gallery', second > 0.5 ? 'Without leaving your event workflow.' : 'From the gallery to a finished frame.'],
+              ['03', 'No export', 'The work never leaves the day.'],
+              ['04', 'Same-day', 'Deliver before the event ends.'],
+              ['05', 'One studio', 'Generate and Enhance together.'],
+              ['06', 'In the event', 'No new tab. No handoff.'],
+            ].map(([num, title, body], index) => (
+              <SlideIn key={num} frame={frame} at={18 + index * 7}>
+                <AsideItem num={num} title={title} body={body} />
+              </SlideIn>
+            ))}
+          </FactGrid>
+        }
+      />
+    </Stage>
+  )
+}
+
+const generateLooks = ['Watercolor', 'Royal', 'Film', 'Floral', 'Custom', 'Editorial']
+
+function GenerateCard({ frame }: { frame: number }) {
+  return (
+    <Stage
+      frame={frame}
+      topLine="Pick a look"
+      bottomLine="Change the frame"
+    >
+      <Split
+        frame={frame}
+        left={
+          <>
+            <Rise frame={frame} at={0}>
+              <Eyebrow>01  /  Generate</Eyebrow>
+            </Rise>
+            <Words text="Pick a look." frame={frame} at={6} from="left" />
+            <Words text="Change the frame." frame={frame} at={16} gold from="left" />
+          </>
+        }
+        right={
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr 1fr',
+              gap: 10,
+              width: '100%',
+            }}
+          >
+            {generateLooks.map((look, index) => {
+              const enter = pop(frame, 18 + index * 5)
+              return (
+                <div
+                  key={look}
+                  style={{
+                    padding: '11px 8px',
+                    border: `1.5px solid ${colors.gold}`,
+                    borderRadius: 999,
+                    color: colors.gold,
+                    fontFamily: fonts.mono,
+                    fontSize: 13,
+                    fontWeight: 500,
+                    letterSpacing: '0.06em',
+                    textAlign: 'center',
+                    opacity: enter,
+                    transform: `translateX(${interpolate(enter, [0, 1], [18, 0])}px) scale(${interpolate(enter, [0, 1], [0.94, 1])})`,
+                  }}
+                >
+                  {look}
+                </div>
+              )
+            })}
+          </div>
+        }
+      />
+    </Stage>
+  )
+}
+
+function EnhanceCard({ frame }: { frame: number }) {
+  const points = [
+    ['01', 'Keep the people', 'Faces and pose stay true.'],
+    ['02', 'Clean the frame', 'Light and noise get lifted.'],
+    ['03', 'Same photo, lifted', 'No new look. Just better.'],
+    ['04', 'Event-ready', 'Concert, travel, fashion, cafe.'],
+    ['05', 'Natural light', 'Skin and slides stay true.'],
+    ['06', 'One click', 'Lift the photo, keep the people.'],
+  ]
+
+  return (
+    <Stage
+      frame={frame}
+      topLine="Keep the people"
+      bottomLine="Lift the photo"
+    >
+      <Split
+        frame={frame}
+        left={
+          <>
+            <Rise frame={frame} at={0}>
+              <Eyebrow>02  /  Enhance</Eyebrow>
+            </Rise>
+            <Words text="Keep the photo." frame={frame} at={6} from="up" />
+            <Words text="Lift it." frame={frame} at={16} gold from="right" />
+          </>
+        }
+        right={
+          <FactGrid>
+            {points.map(([num, title, body], index) => (
+              <SlideIn key={title} frame={frame} at={18 + index * 7}>
+                <AsideItem num={num} title={title} body={body} />
+              </SlideIn>
+            ))}
+          </FactGrid>
+        }
+      />
+    </Stage>
+  )
+}
+
+const values = [
+  ['01', 'Faster workflow', 'Stay in the gallery.'],
+  ['02', 'One-click editing', 'Generate or Enhance.'],
+  ['03', 'Custom styles', 'Looks that match the event.'],
+  ['04', 'On-brand looks', 'Royal to film, in one pass.'],
+  ['05', 'Same-day', 'Deliver before the event ends.'],
+  ['06', 'In the gallery', 'The work never leaves the day.'],
+]
+
+function ValuesCard({ frame }: { frame: number }) {
+  return (
+    <Stage
+      frame={frame}
+      topLine="Built for the day"
+      bottomLine="Gallery to delivery"
+    >
+      <Split
+        frame={frame}
+        left={
+          <>
+            <Rise frame={frame} at={0}>
+              <Eyebrow>Why it stays in the event</Eyebrow>
+            </Rise>
+            <Words text="Built for the day." frame={frame} at={6} from="up" />
+            <Rise frame={frame} at={22}>
+              <Support>Six reasons the work never leaves the gallery.</Support>
+            </Rise>
+          </>
+        }
+        right={
+          <FactGrid>
+            {values.map(([num, title, body], index) => (
+              <SlideIn key={title} frame={frame} at={10 + index * 7}>
+                <AsideItem num={num} title={title} body={body} />
+              </SlideIn>
+            ))}
+          </FactGrid>
+        }
+      />
+    </Stage>
+  )
+}
+
+function PathsCard({ frame }: { frame: number }) {
+  const left = pop(frame, 4)
+  const right = pop(frame, 14)
+  const mid = pop(frame, 28)
+
+  return (
+    <Stage
+      frame={frame}
+      topLine="Generate changes the look"
+      bottomLine="Enhance keeps the people"
+    >
+      <Split
+        frame={frame}
+        left={
+          <>
+            <Rise frame={frame} at={0}>
+              <Eyebrow>Two paths. One studio.</Eyebrow>
+            </Rise>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 18, marginTop: 4 }}>
+              <div
                 style={{
-                  position: 'absolute',
-                  left: 10,
-                  bottom: 10,
-                  padding: '3px 8px',
-                  background: 'rgba(13, 15, 18, 0.78)',
                   color: colors.gold,
-                  fontFamily: fonts.mono,
-                  fontSize: 10,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
+                  fontSize: 36,
+                  fontWeight: 800,
+                  letterSpacing: '-0.045em',
+                  opacity: left,
+                  transform: `translateX(${interpolate(left, [0, 1], [-22, 0])}px)`,
                 }}
               >
-                {still.label}
-              </span>
+                Generate
+              </div>
+              <div
+                style={{
+                  color: 'rgba(250, 246, 237, 0.35)',
+                  fontSize: 28,
+                  fontWeight: 700,
+                  opacity: mid,
+                }}
+              >
+                /
+              </div>
+              <div
+                style={{
+                  color: colors.cream,
+                  fontSize: 36,
+                  fontWeight: 800,
+                  letterSpacing: '-0.045em',
+                  opacity: right,
+                  transform: `translateX(${interpolate(right, [0, 1], [22, 0])}px)`,
+                }}
+              >
+                Enhance
+              </div>
             </div>
-          )
-        })}
-      </div>
-    </AbsoluteFill>
+          </>
+        }
+        right={
+          <FactGrid>
+            <SlideIn frame={frame} at={18}>
+              <AsideItem num="01" title="Generate" body="Change the look. Watercolor to royal in one click." />
+            </SlideIn>
+            <SlideIn frame={frame} at={24}>
+              <AsideItem num="02" title="Enhance" body="Keep the people and clean the frame." />
+            </SlideIn>
+            <SlideIn frame={frame} at={30}>
+              <AsideItem num="03" title="Templates" body="Preview the look before you deliver." />
+            </SlideIn>
+            <SlideIn frame={frame} at={36}>
+              <AsideItem num="04" title="Same photo" body="Lift the frame without a new style." />
+            </SlideIn>
+            <SlideIn frame={frame} at={40}>
+              <AsideItem num="05" title="One studio" body="Two paths. The same event workflow." />
+            </SlideIn>
+            <SlideIn frame={frame} at={44}>
+              <AsideItem num="06" title="Same day" body="Preview, finish, and deliver in place." />
+            </SlideIn>
+          </FactGrid>
+        }
+      />
+    </Stage>
   )
 }
 
 function CloseCard({ frame }: { frame: number }) {
-  const rise = interpolate(frame, [0, 20], [18, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
+  const { fps } = useVideoConfig()
+  const enter = spring({
+    frame,
+    fps,
+    config: { damping: 16, stiffness: 140 },
   })
 
   return (
-    <AbsoluteFill
-      style={{
-        overflow: 'hidden',
-        backgroundColor: colors.ink,
-        fontFamily: fonts.display,
-      }}
+    <Stage
+      frame={frame}
+      topLine="Start creating"
+      bottomLine="Deliver the same day"
     >
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          left: '-8%',
-          top: '8%',
-          color: 'transparent',
-          WebkitTextStroke: `2px ${colors.gold}`,
-          fontSize: 220,
-          fontWeight: 800,
-          letterSpacing: '-0.07em',
-          textTransform: 'lowercase',
-        }}
-      >
-        studio
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 16,
-          transform: `translateY(${rise}px)`,
-        }}
-      >
-        <Img src={media.logo} style={{ height: 28, width: 'auto' }} />
-        <div
-          style={{
-            color: colors.gold,
-            fontSize: 48,
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
-          }}
-        >
-          AI Studio
-        </div>
-        <div
-          style={{
-            color: 'rgba(250, 246, 237, 0.62)',
-            fontFamily: fonts.mono,
-            fontSize: 12,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-          }}
-        >
-          Generate · Enhance
-        </div>
-      </div>
-    </AbsoluteFill>
+      <Split
+        frame={frame}
+        left={
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: 12,
+              opacity: enter,
+              transform: `translateY(${interpolate(enter, [0, 1], [18, 0])}px)`,
+            }}
+          >
+            <Img src={media.logo} style={{ height: 24, width: 'auto' }} />
+            <Words text="Start creating." frame={frame} at={8} gold from="up" />
+          </div>
+        }
+        right={
+          <FactGrid>
+            <SlideIn frame={frame} at={14}>
+              <AsideItem num="01" title="Open Studio" body="Pick a still from the gallery." />
+            </SlideIn>
+            <SlideIn frame={frame} at={20}>
+              <AsideItem num="02" title="Generate or Enhance" body="Change the look, or lift the photo." />
+            </SlideIn>
+            <SlideIn frame={frame} at={26}>
+              <AsideItem num="03" title="Preview" body="See the finished frame in place." />
+            </SlideIn>
+            <SlideIn frame={frame} at={32}>
+              <AsideItem num="04" title="Deliver the same day" body="Stay in the event workflow." />
+            </SlideIn>
+            <SlideIn frame={frame} at={36}>
+              <AsideItem num="05" title="Keep the people" body="Enhance lifts the frame, not the look." />
+            </SlideIn>
+            <SlideIn frame={frame} at={40}>
+              <AsideItem num="06" title="Change the look" body="Generate takes the still somewhere new." />
+            </SlideIn>
+          </FactGrid>
+        }
+      />
+    </Stage>
   )
 }
 
@@ -430,15 +779,18 @@ export function AiStudioIntro() {
   const frame = useCurrentFrame()
 
   const scenes = [
-    { start: 0, end: 96, node: <MethodCard frame={frame} /> },
-    { start: 88, end: 216, node: <GhostType frame={frame - 88} /> },
-    { start: 208, end: 320, node: <TwoPaths frame={frame - 208} /> },
-    { start: 312, end: 468, node: <FeatureBoard frame={frame - 312} /> },
-    { start: 460, end: INTRO_DURATION, node: <CloseCard frame={frame - 460} /> },
+    { start: 0, end: 78, node: <TitleCard frame={frame} /> },
+    { start: 72, end: 162, node: <ManifestoCard frame={frame - 72} /> },
+    { start: 156, end: 258, node: <GenerateCard frame={frame - 156} /> },
+    { start: 252, end: 354, node: <EnhanceCard frame={frame - 252} /> },
+    { start: 348, end: 438, node: <ValuesCard frame={frame - 348} /> },
+    { start: 432, end: 516, node: <PathsCard frame={frame - 432} /> },
+    { start: 510, end: INTRO_DURATION, node: <CloseCard frame={frame - 510} /> },
   ] as const
 
   return (
     <AbsoluteFill style={{ backgroundColor: colors.ink }}>
+      <Audio src={media.introBeat} loop volume={0.52} />
       {scenes.map((scene) => {
         if (frame < scene.start || frame > scene.end) return null
         return (

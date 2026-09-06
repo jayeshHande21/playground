@@ -9,6 +9,7 @@ export const media = {
   floral: staticFile('ai-generate/template-floral.jpg'),
   result: staticFile('ai-generate/preview-result.jpg'),
   logo: staticFile('ai-generate/fotoowl-logo.svg'),
+  introBeat: staticFile('ai-generate/intro-beat.wav'),
   eventGuests: staticFile('ai-generate/event-guests.jpg'),
   eventCeremony: staticFile('ai-generate/event-ceremony.jpg'),
   eventDance: staticFile('ai-generate/event-dance.jpg'),
