@@ -33,6 +33,13 @@ const points = [
   { label: 'On-brand looks', Icon: Palette },
 ]
 
+const stills = [
+  { src: '/ai-generate/event-guests.jpg', position: 'center 38%' },
+  { src: '/ai-generate/template-watercolor.jpg', position: 'center top' },
+  { src: '/ai-generate/enhance-concert.jpg', position: 'center 42%' },
+  { src: '/ai-generate/preview-result.jpg', position: 'center 28%' },
+]
+
 const easeOut = [0.22, 1, 0.36, 1] as const
 
 const contentVariants = {
@@ -123,12 +130,8 @@ const Wordmark = styled(motion.p)`
   text-align: center;
   color: var(--color-primary);
 
-  @media (min-width: 1800px) {
-    font-size: clamp(9.5rem, 11.5vw, 13.5rem);
-  }
-
-  @media (min-width: 2400px) {
-    font-size: clamp(12rem, 10vw, 16rem);
+  @media (min-width: 1600px) {
+    font-size: clamp(4.75rem, 6.4vw, 7.25rem);
   }
 `
 
@@ -140,10 +143,16 @@ const Nav = styled(motion.nav)`
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
+  max-width: var(--page-max);
+  width: 100%;
+  margin: 0 auto;
   padding: 0.85rem var(--hero-gutter);
-  background: color-mix(in srgb, var(--color-background) 78%, transparent);
-  backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--color-border);
+
+  @media (min-width: 1600px) {
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+  }
 `
 
 const NavLinks = styled.div`
@@ -155,6 +164,10 @@ const NavLinks = styled.div`
 const NavLink = styled.a`
   position: relative;
   font-size: 0.875rem;
+
+  @media (min-width: 1600px) {
+    font-size: 1.05rem;
+  }
   color: var(--color-muted-foreground);
   text-decoration: none;
   min-height: 44px;
@@ -202,6 +215,12 @@ const NavCta = styled(motion.a)`
   color: var(--color-on-primary);
   font-size: 0.875rem;
   font-weight: 600;
+
+  @media (min-width: 1600px) {
+    min-height: 48px;
+    padding: 0.65rem 1.4rem;
+    font-size: 1rem;
+  }
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0 8px 18px color-mix(in srgb, var(--color-primary) 18%, transparent);
@@ -226,16 +245,32 @@ const Main = styled(motion.div)`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   max-width: var(--page-max);
   width: 100%;
   margin: 0 auto;
   padding: 2.25rem var(--hero-gutter) 1.5rem;
   text-align: center;
 
-  @media (min-width: 1800px) {
-    padding-top: 3.25rem;
-    padding-bottom: 2rem;
+  @media (min-width: 1600px) {
+    display: grid;
+    grid-template-columns: minmax(28rem, 1fr) minmax(22rem, 36rem);
+    align-items: center;
+    justify-content: stretch;
+    gap: clamp(2.5rem, 4vw, 5rem);
+    padding: 3rem var(--hero-gutter) 2.5rem;
+    text-align: left;
+  }
+`
+
+const Copy = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+
+  @media (min-width: 1600px) {
+    align-items: flex-start;
   }
 `
 
@@ -248,8 +283,13 @@ const Headline = styled(motion.h1)`
   letter-spacing: -0.03em;
   text-wrap: balance;
 
-  @media (min-width: 1800px) {
-    font-size: clamp(4.5rem, 4.2vw, 6.25rem);
+  @media (min-width: 1600px) {
+    max-inline-size: none;
+    font-size: clamp(5.25rem, 6.2vw, 8.5rem);
+  }
+
+  @media (min-width: 2400px) {
+    font-size: clamp(7.25rem, 5.4vw, 10.5rem);
   }
 `
 
@@ -281,14 +321,23 @@ const Lede = styled(motion.p)`
   line-height: 1.6;
   color: var(--color-muted-foreground);
 
-  @media (min-width: 1800px) {
-    max-width: 40ch;
-    font-size: 1.2rem;
+  @media (min-width: 1600px) {
+    max-width: 34ch;
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: 2400px) {
+    font-size: 1.45rem;
   }
 `
 
 const Actions = styled(motion.div)`
   margin-top: 1.5rem;
+
+  @media (min-width: 1600px) {
+    margin-top: 2rem;
+  }
 `
 
 const CtaLabel = styled.span`
@@ -356,6 +405,12 @@ const PrimaryCta = styled(motion.a)`
   &:hover ${CtaIcon} {
     transform: rotate(18deg) scale(1.08);
   }
+
+  @media (min-width: 1600px) {
+    min-height: 64px;
+    padding: 1rem 2.15rem;
+    font-size: 1.125rem;
+  }
 `
 
 const Points = styled(motion.ul)`
@@ -368,6 +423,13 @@ const Points = styled(motion.ul)`
   list-style: none;
   font-size: 0.8125rem;
   color: var(--color-muted-foreground);
+
+  @media (min-width: 1600px) {
+    justify-content: flex-start;
+    gap: 0.85rem 1.75rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+  }
 `
 
 const Point = styled.li`
@@ -456,6 +518,32 @@ const Look = styled.li`
 
   &:hover {
     color: var(--color-accent);
+  }
+`
+
+const Stills = styled(motion.div)`
+  display: none;
+
+  @media (min-width: 1600px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+  }
+`
+
+const Still = styled.img<{ $tilt: number }>`
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: var(--color-cream);
+  box-shadow: var(--shadow-md);
+  transform: rotate(${(props) => props.$tilt}deg);
+
+  &:nth-child(2),
+  &:nth-child(3) {
+    margin-top: 1.75rem;
   }
 `
 
@@ -567,67 +655,84 @@ export default function HeroSection() {
         animate="show"
         variants={contentVariants}
       >
-        <Headline
-          aria-label={headline.join(' ')}
-          variants={reduceMotion ? undefined : headlineVariants}
+        <Copy variants={reduceMotion ? undefined : contentVariants}>
+          <Headline
+            aria-label={headline.join(' ')}
+            variants={reduceMotion ? undefined : headlineVariants}
+          >
+            {headline.map((text, index) => (
+              <Line
+                key={text}
+                aria-hidden="true"
+                variants={reduceMotion ? undefined : lineVariants}
+              >
+                {reduceMotion
+                  ? index === 1
+                    ? <AccentLetter>{text}</AccentLetter>
+                    : text
+                  : Array.from(text).map((char, charIndex) => {
+                      const LetterTag = index === 1 ? AccentLetter : Letter
+                      return (
+                        <LetterTag
+                          key={`${text}-${charIndex}`}
+                          variants={letterVariants}
+                        >
+                          {char}
+                        </LetterTag>
+                      )
+                    })}
+              </Line>
+            ))}
+          </Headline>
+
+          <Lede variants={reduceMotion ? undefined : itemVariants}>
+            Turn a prompt into a finished visual — without leaving your event
+            workflow.
+          </Lede>
+
+          <Actions variants={reduceMotion ? undefined : itemVariants}>
+            <Magnetic>
+              <PrimaryCta
+                href="#studio"
+                data-cursor="action"
+                aria-label="Start Creating"
+                whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                transition={{ duration: 0.2 }}
+              >
+                <CtaLabel aria-hidden="true">
+                  <CtaWord>Start Creating</CtaWord>
+                  <CtaWord>Open Studio</CtaWord>
+                </CtaLabel>
+                <CtaIcon size={16} weight="fill" aria-hidden="true" />
+              </PrimaryCta>
+            </Magnetic>
+          </Actions>
+
+          <Points variants={reduceMotion ? undefined : itemVariants}>
+            {points.map(({ label, Icon }) => (
+              <Point key={label}>
+                <Icon size={15} weight="regular" aria-hidden="true" />
+                {label}
+              </Point>
+            ))}
+          </Points>
+        </Copy>
+
+        <Stills
+          aria-hidden="true"
+          variants={reduceMotion ? undefined : itemVariants}
         >
-          {headline.map((text, index) => (
-            <Line
-              key={text}
-              aria-hidden="true"
-              variants={reduceMotion ? undefined : lineVariants}
-            >
-              {reduceMotion
-                ? index === 1
-                  ? <AccentLetter>{text}</AccentLetter>
-                  : text
-                : Array.from(text).map((char, charIndex) => {
-                    const LetterTag = index === 1 ? AccentLetter : Letter
-                    return (
-                      <LetterTag
-                        key={`${text}-${charIndex}`}
-                        variants={letterVariants}
-                      >
-                        {char}
-                      </LetterTag>
-                    )
-                  })}
-            </Line>
+          {stills.map((still, index) => (
+            <Still
+              key={still.src}
+              src={still.src}
+              alt=""
+              $tilt={[-3.2, 2.6, 2.1, -2.4][index] ?? 0}
+              style={{ objectPosition: still.position }}
+            />
           ))}
-        </Headline>
-
-        <Lede variants={reduceMotion ? undefined : itemVariants}>
-          Turn a prompt into a finished visual — without leaving your event
-          workflow.
-        </Lede>
-
-        <Actions variants={reduceMotion ? undefined : itemVariants}>
-          <Magnetic>
-            <PrimaryCta
-              href="#studio"
-              data-cursor="action"
-              aria-label="Start Creating"
-              whileHover={reduceMotion ? undefined : { scale: 1.03 }}
-              whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
-              <CtaLabel aria-hidden="true">
-                <CtaWord>Start Creating</CtaWord>
-                <CtaWord>Open Studio</CtaWord>
-              </CtaLabel>
-              <CtaIcon size={16} weight="fill" aria-hidden="true" />
-            </PrimaryCta>
-          </Magnetic>
-        </Actions>
-
-        <Points variants={reduceMotion ? undefined : itemVariants}>
-          {points.map(({ label, Icon }) => (
-            <Point key={label}>
-              <Icon size={15} weight="regular" aria-hidden="true" />
-              {label}
-            </Point>
-          ))}
-        </Points>
+        </Stills>
       </Main>
 
       <Marquee id="styles" aria-label="Studio looks" data-cursor="dark">
