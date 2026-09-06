@@ -14,6 +14,8 @@ export const media = {
   eventDance: staticFile('ai-generate/event-dance.jpg'),
   eventFamily: staticFile('ai-generate/event-family.jpg'),
   eventWalk: staticFile('ai-generate/event-walk.jpg'),
+  enhanceConcert: staticFile('ai-generate/enhance-concert.jpg'),
+  enhanceTravel: staticFile('ai-generate/enhance-travel.jpg'),
 }
 
 export const templates = [

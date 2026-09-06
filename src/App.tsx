@@ -1,5 +1,6 @@
 import { MotionConfig } from 'motion/react'
 import HeroSection from './components/HeroSection'
+import StudioIntro from './components/StudioIntro'
 import HowItWorks from './components/HowItWorks'
 import AiEnhance from './components/AiEnhance'
 import WorkflowClose from './components/WorkflowClose'
@@ -17,6 +18,7 @@ function App() {
         <HowItWorks />
         <AiEnhance />
         <WorkflowClose />
+        <StudioIntro />
       </main>
     </MotionConfig>
   )

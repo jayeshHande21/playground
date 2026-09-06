@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "remotion": "remotion studio remotion/src/index.ts",
-    "remotion:render": "remotion render remotion/src/index.ts AiGenerateSteps"
+    "remotion:render": "remotion render remotion/src/index.ts AiGenerateSteps",
+    "remotion:render:intro": "remotion render remotion/src/index.ts AiStudioIntro"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

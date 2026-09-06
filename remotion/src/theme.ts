@@ -9,9 +9,13 @@ export const colors = {
   white: '#ffffff',
   border: '#e5e7eb',
   hint: '#9ca3af',
+  ink: '#0d0f12',
+  steel: '#b8b4ae',
 } as const
 
 export const fonts = {
   heading: '"Libre Bodoni", "Times New Roman", serif',
   body: '"Public Sans", system-ui, sans-serif',
+  display: '"Outfit", system-ui, sans-serif',
+  mono: '"IBM Plex Mono", ui-monospace, monospace',
 } as const
