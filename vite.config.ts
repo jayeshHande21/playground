@@ -4,6 +4,13 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 5176,
+    strictPort: false,
+    watch: {
+      usePolling: true,
+    },
+  },
   resolve: {
     alias: {
       remotion: fileURLToPath(new URL('./node_modules/remotion', import.meta.url)),

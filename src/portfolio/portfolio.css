@@ -7,57 +7,6 @@
   color: var(--color-on-primary);
 }
 
-.portfolio-page__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-md);
-  min-height: 3.5rem;
-  padding: 0.7rem var(--page-gutter);
-  background: var(--color-primary);
-  border-bottom: 1px solid rgb(255 255 255 / 10%);
-}
-
-.portfolio-page__brand {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  min-width: 0;
-}
-
-.portfolio-page__kicker {
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-
-.portfolio-page__title {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.portfolio-page__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 44px;
-  padding: 0.4rem 0.75rem;
-  border-radius: 8px;
-  color: var(--color-on-primary);
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 160ms ease;
-}
-
-.portfolio-page__back:hover {
-  background: rgb(255 255 255 / 8%);
-}
-
 .portfolio-page__editor {
   flex: 1;
   min-height: 0;
@@ -74,10 +23,4 @@
 
 .portfolio-page .gjs-two-color {
   color: #faf6ed;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .portfolio-page__back {
-    transition: none;
-  }
 }

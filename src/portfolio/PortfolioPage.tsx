@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import grapesjs, { type Editor } from 'grapesjs'
-import { ArrowLeft } from '@phosphor-icons/react'
 import { editorOptions } from './editorConfig'
 import 'grapesjs/dist/css/grapes.min.css'
+import '../home.css'
 import './portfolio.css'
 
 export default function PortfolioPage() {
@@ -29,16 +29,11 @@ export default function PortfolioPage() {
 
   return (
     <div className="portfolio-page">
-      <header className="portfolio-page__bar">
-        <div className="portfolio-page__brand">
-          <span className="portfolio-page__kicker">AI Studio</span>
-          <h1 className="portfolio-page__title">Portfolio editor</h1>
-        </div>
-        <a className="portfolio-page__back" href="/">
-          <ArrowLeft size={18} weight="bold" aria-hidden="true" />
-          Back to studio
+      <div className="portfolio-page__back">
+        <a className="back-home" href="/">
+          Back to playground
         </a>
-      </header>
+      </div>
       <div className="portfolio-page__editor" ref={editorRef} />
     </div>
   )
