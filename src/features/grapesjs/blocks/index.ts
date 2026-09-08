@@ -4,6 +4,9 @@ import { headerSplitBlock } from './headerSplit'
 import { headerMastheadBlock } from './headerMasthead'
 import { headerStudioBlock } from './headerStudio'
 import { heroIntroBlock } from './heroIntro'
+import { heroLeftBlock } from './heroLeft'
+import { heroSplitBlock } from './heroSplit'
+import { heroStatementBlock } from './heroStatement'
 
 export const sectionBlocks: BlockProperties[] = [
   headerBlock,
@@ -11,6 +14,9 @@ export const sectionBlocks: BlockProperties[] = [
   headerMastheadBlock,
   headerStudioBlock,
   heroIntroBlock,
+  heroLeftBlock,
+  heroSplitBlock,
+  heroStatementBlock,
 ]
 
 export const basicBlocks: BlockProperties[] = [
