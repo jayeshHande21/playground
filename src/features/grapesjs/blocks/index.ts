@@ -3,12 +3,14 @@ import { headerBlock } from './header'
 import { headerSplitBlock } from './headerSplit'
 import { headerMastheadBlock } from './headerMasthead'
 import { headerStudioBlock } from './headerStudio'
+import { heroIntroBlock } from './heroIntro'
 
 export const sectionBlocks: BlockProperties[] = [
   headerBlock,
   headerSplitBlock,
   headerMastheadBlock,
   headerStudioBlock,
+  heroIntroBlock,
 ]
 
 export const basicBlocks: BlockProperties[] = [

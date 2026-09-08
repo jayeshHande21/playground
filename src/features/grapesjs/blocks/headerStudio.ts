@@ -2,7 +2,7 @@ import { createHeaderBlock } from './headerShared'
 
 export const headerStudioBlock = createHeaderBlock({
   id: 'portfolio-header-studio',
-  label: 'Header · Studio',
+  label: 'Studio Header',
   media: `<svg viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <rect width="72" height="48" fill="#f3f3f3"/>
     <rect x="4" y="12" width="64" height="24" fill="#ffffff"/>
@@ -14,22 +14,22 @@ export const headerStudioBlock = createHeaderBlock({
     <line x1="4" y1="36" x2="68" y2="36" stroke="#111111" stroke-width="1"/>
   </svg>`,
   html: `
-<header class="krw-studio" data-gjs-name="Header studio" data-gjs-droppable="false">
-  <div class="krw-studio__bar" data-gjs-name="Header bar" data-gjs-draggable="false">
+<header class="krw-studio" data-gjs-name="Studio header" data-gjs-droppable="false">
+  <div class="krw-studio__bar" data-gjs-name="Header row" data-gjs-draggable="false">
     <a class="krw-studio__brand" href="#top" data-gjs-name="Brand">
       <span class="krw-studio__name" data-gjs-name="Name">Keerowa</span>
-      <span class="krw-studio__meta" data-gjs-name="Meta">Design studio</span>
+      <span class="krw-studio__meta" data-gjs-name="Role">Design studio</span>
     </a>
     <nav class="krw-studio__nav" data-gjs-name="Navigation" data-gjs-draggable="false">
-      <a class="krw-studio__link" href="#works" data-gjs-name="Nav link">
+      <a class="krw-studio__link" href="#works" data-gjs-name="Link">
         <span class="krw-studio__num">01</span>
         Works
       </a>
-      <a class="krw-studio__link" href="#about" data-gjs-name="Nav link">
+      <a class="krw-studio__link" href="#about" data-gjs-name="Link">
         <span class="krw-studio__num">02</span>
         About
       </a>
-      <a class="krw-studio__link" href="#contact" data-gjs-name="Nav link">
+      <a class="krw-studio__link" href="#contact" data-gjs-name="Link">
         <span class="krw-studio__num">03</span>
         Contact
       </a>

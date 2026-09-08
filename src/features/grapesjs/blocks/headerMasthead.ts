@@ -2,7 +2,7 @@ import { createHeaderBlock } from './headerShared'
 
 export const headerMastheadBlock = createHeaderBlock({
   id: 'portfolio-header-masthead',
-  label: 'Header · Masthead',
+  label: 'Stacked Header',
   media: `<svg viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <rect width="72" height="48" fill="#f3f3f3"/>
     <rect x="4" y="8" width="64" height="32" fill="#ffffff"/>
@@ -12,13 +12,13 @@ export const headerMastheadBlock = createHeaderBlock({
     <rect x="46" y="28" width="8" height="2" fill="#111111"/>
   </svg>`,
   html: `
-<header class="krw-mast" data-gjs-name="Header masthead" data-gjs-droppable="false">
-  <div class="krw-mast__bar" data-gjs-name="Header bar" data-gjs-draggable="false">
+<header class="krw-mast" data-gjs-name="Stacked header" data-gjs-droppable="false">
+  <div class="krw-mast__bar" data-gjs-name="Header row" data-gjs-draggable="false">
     <a class="krw-mast__logo" href="#top" data-gjs-name="Logo">.KEEROWA</a>
     <nav class="krw-mast__nav" data-gjs-name="Navigation" data-gjs-draggable="false">
-      <a class="krw-mast__link" href="#works" data-gjs-name="Nav link">Works</a>
-      <a class="krw-mast__link" href="#about" data-gjs-name="Nav link">About</a>
-      <a class="krw-mast__link" href="#contact" data-gjs-name="Nav link">Contact</a>
+      <a class="krw-mast__link" href="#works" data-gjs-name="Link">Works</a>
+      <a class="krw-mast__link" href="#about" data-gjs-name="Link">About</a>
+      <a class="krw-mast__link" href="#contact" data-gjs-name="Link">Contact</a>
     </nav>
   </div>
 </header>

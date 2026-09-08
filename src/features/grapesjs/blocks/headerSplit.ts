@@ -2,7 +2,7 @@ import { createHeaderBlock } from './headerShared'
 
 export const headerSplitBlock = createHeaderBlock({
   id: 'portfolio-header-split',
-  label: 'Header · Centered',
+  label: 'Centered Header',
   media: `<svg viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <rect width="72" height="48" fill="#f3f3f3"/>
     <rect x="4" y="14" width="64" height="20" fill="#ffffff"/>
@@ -13,15 +13,15 @@ export const headerSplitBlock = createHeaderBlock({
     <rect x="58" y="23" width="6" height="2" fill="#111111"/>
   </svg>`,
   html: `
-<header class="krw-split" data-gjs-name="Header centered" data-gjs-droppable="false">
-  <div class="krw-split__bar" data-gjs-name="Header bar" data-gjs-draggable="false">
-    <nav class="krw-split__nav krw-split__nav--start" data-gjs-name="Left nav" data-gjs-draggable="false">
-      <a class="krw-split__link" href="#works" data-gjs-name="Nav link">Works</a>
-      <a class="krw-split__link" href="#about" data-gjs-name="Nav link">About</a>
+<header class="krw-split" data-gjs-name="Centered header" data-gjs-droppable="false">
+  <div class="krw-split__bar" data-gjs-name="Header row" data-gjs-draggable="false">
+    <nav class="krw-split__nav krw-split__nav--start" data-gjs-name="Left navigation" data-gjs-draggable="false">
+      <a class="krw-split__link" href="#works" data-gjs-name="Link">Works</a>
+      <a class="krw-split__link" href="#about" data-gjs-name="Link">About</a>
     </nav>
     <a class="krw-split__logo" href="#top" data-gjs-name="Logo">.KEEROWA</a>
-    <nav class="krw-split__nav krw-split__nav--end" data-gjs-name="Right nav" data-gjs-draggable="false">
-      <a class="krw-split__link" href="#contact" data-gjs-name="Nav link">Contact</a>
+    <nav class="krw-split__nav krw-split__nav--end" data-gjs-name="Right navigation" data-gjs-draggable="false">
+      <a class="krw-split__link" href="#contact" data-gjs-name="Link">Contact</a>
     </nav>
   </div>
 </header>
