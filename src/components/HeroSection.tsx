@@ -15,17 +15,6 @@ import {
 
 const headline = ['Imagine it.', 'Render it.']
 
-const looks = [
-  'Royal',
-  'Editorial',
-  'Festival',
-  'Film',
-  'Portrait',
-  'Red carpet',
-  'Destination',
-  'Candid',
-]
-
 const points = [
   { label: 'Faster workflow', Icon: Lightning },
   { label: 'One-click editing', Icon: MagicWand },
@@ -34,10 +23,41 @@ const points = [
 ]
 
 const stills = [
-  { src: '/ai-generate/event-guests.jpg', position: 'center 38%' },
-  { src: '/ai-generate/template-watercolor.jpg', position: 'center top' },
-  { src: '/ai-generate/enhance-concert.jpg', position: 'center 42%' },
-  { src: '/ai-generate/preview-result.jpg', position: 'center 28%' },
+  {
+    src: '/ai-generate/enhance-concert.jpg',
+    position: 'center 42%',
+    height: '64%',
+    flex: '0.58',
+    hideMobile: true,
+  },
+  {
+    src: '/ai-generate/event-guests.jpg',
+    position: 'center 38%',
+    height: '82%',
+    flex: '0.82',
+    hideMobile: false,
+  },
+  {
+    src: '/ai-generate/preview-result.jpg',
+    position: 'center 22%',
+    height: '100%',
+    flex: '1.05',
+    hideMobile: false,
+  },
+  {
+    src: '/ai-generate/event-ceremony.jpg',
+    position: 'center 30%',
+    height: '82%',
+    flex: '0.82',
+    hideMobile: false,
+  },
+  {
+    src: '/ai-generate/event-walk.jpg',
+    position: 'center 35%',
+    height: '64%',
+    flex: '0.58',
+    hideMobile: true,
+  },
 ]
 
 const easeOut = [0.22, 1, 0.36, 1] as const
@@ -78,13 +98,33 @@ const letterVariants = {
   },
 }
 
+const mountainVariants = {
+  hidden: {},
+  show: {
+    transition: { delayChildren: 0.28 },
+  },
+}
+
+const frameVariants = {
+  hidden: { opacity: 0, y: 36 },
+  show: (distance: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: easeOut,
+      delay: distance * 0.08,
+    },
+  }),
+}
+
 const HeroContainer = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   min-height: 100svh;
-  overflow-x: clip;
+  overflow: clip;
   --spot-x: 18%;
   --spot-y: 22%;
   background:
@@ -114,35 +154,12 @@ const Texture = styled.div`
   background-size: 5px 5px;
 `
 
-const Top = styled.header`
-  position: relative;
-  z-index: 1;
-  padding: 1.35rem var(--hero-gutter) 0;
-`
-
-const Wordmark = styled(motion.p)`
-  margin: 0;
-  font-family: var(--font-heading);
-  font-size: clamp(3.25rem, 14.5vw, 10.5rem);
-  font-weight: 700;
-  line-height: 0.82;
-  letter-spacing: -0.055em;
-  text-align: center;
-  color: var(--color-primary);
-
-  @media (min-width: 1600px) {
-    font-size: clamp(4.75rem, 6.4vw, 7.25rem);
-  }
-`
-
-const Nav = styled(motion.nav)`
+const Header = styled(motion.header)`
   position: relative;
   z-index: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem 1.5rem;
   max-width: var(--page-max);
   width: 100%;
   margin: 0 auto;
@@ -150,15 +167,55 @@ const Nav = styled(motion.nav)`
   border-bottom: 1px solid var(--color-border);
 
   @media (min-width: 1600px) {
-    padding-top: 1.1rem;
-    padding-bottom: 1.1rem;
+    padding-top: 1.05rem;
+    padding-bottom: 1.05rem;
   }
 `
 
-const NavLinks = styled.div`
+const Wordmark = styled(motion.a)`
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-primary);
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent-dark);
+  }
+`
+
+const Nav = styled.nav`
   display: flex;
   flex-wrap: wrap;
-  gap: 1.15rem 1.75rem;
+  align-items: center;
+  gap: 0.15rem 1.5rem;
+
+  @media (max-width: 767px) {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  @media (min-width: 768px) {
+    margin-left: auto;
+    margin-right: 1.75rem;
+    gap: 0.15rem 1.75rem;
+  }
+`
+
+const NavEnd = styled.div`
+  margin-left: auto;
+
+  @media (min-width: 768px) {
+    margin-left: 0;
+  }
 `
 
 const NavLink = styled.a`
@@ -249,18 +306,8 @@ const Main = styled(motion.div)`
   max-width: var(--page-max);
   width: 100%;
   margin: 0 auto;
-  padding: 2.25rem var(--hero-gutter) 1.5rem;
+  padding: 1.75rem var(--hero-gutter) 1.25rem;
   text-align: center;
-
-  @media (min-width: 1600px) {
-    display: grid;
-    grid-template-columns: minmax(28rem, 1fr) minmax(22rem, 36rem);
-    align-items: center;
-    justify-content: stretch;
-    gap: clamp(2.5rem, 4vw, 5rem);
-    padding: 3rem var(--hero-gutter) 2.5rem;
-    text-align: left;
-  }
 `
 
 const Copy = styled(motion.div)`
@@ -268,29 +315,16 @@ const Copy = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   min-width: 0;
-
-  @media (min-width: 1600px) {
-    align-items: flex-start;
-  }
 `
 
 const Headline = styled(motion.h1)`
   max-inline-size: 12ch;
   color: var(--color-primary);
-  font-size: clamp(2.75rem, 6vw, 5rem);
+  font-size: clamp(2.5rem, 5.6vw, 4.75rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.03em;
   text-wrap: balance;
-
-  @media (min-width: 1600px) {
-    max-inline-size: none;
-    font-size: clamp(5.25rem, 6.2vw, 8.5rem);
-  }
-
-  @media (min-width: 2400px) {
-    font-size: clamp(7.25rem, 5.4vw, 10.5rem);
-  }
 `
 
 const Line = styled(motion.span)`
@@ -320,24 +354,15 @@ const Lede = styled(motion.p)`
   font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--color-muted-foreground);
-
-  @media (min-width: 1600px) {
-    max-width: 34ch;
-    margin-top: 1.5rem;
-    font-size: 1.25rem;
-  }
-
-  @media (min-width: 2400px) {
-    font-size: 1.45rem;
-  }
 `
 
 const Actions = styled(motion.div)`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   margin-top: 1.5rem;
-
-  @media (min-width: 1600px) {
-    margin-top: 2rem;
-  }
 `
 
 const CtaLabel = styled.span`
@@ -405,11 +430,27 @@ const PrimaryCta = styled(motion.a)`
   &:hover ${CtaIcon} {
     transform: rotate(18deg) scale(1.08);
   }
+`
 
-  @media (min-width: 1600px) {
-    min-height: 64px;
-    padding: 1rem 2.15rem;
-    font-size: 1.125rem;
+const SecondaryCta = styled(motion.a)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--color-primary) 18%, transparent);
+
+  &:hover,
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--color-accent),
+      0 12px 24px color-mix(in srgb, var(--color-primary) 22%, transparent);
   }
 `
 
@@ -418,18 +459,11 @@ const Points = styled(motion.ul)`
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.65rem 1.25rem;
-  margin: 1.75rem 0 0;
+  margin: 1.5rem 0 0;
   padding: 0;
   list-style: none;
   font-size: 0.8125rem;
   color: var(--color-muted-foreground);
-
-  @media (min-width: 1600px) {
-    justify-content: flex-start;
-    gap: 0.85rem 1.75rem;
-    margin-top: 2rem;
-    font-size: 1rem;
-  }
 `
 
 const Point = styled.li`
@@ -461,89 +495,53 @@ const Point = styled.li`
   }
 `
 
-const Track = styled.div`
+const Mountain = styled(motion.div)`
+  position: relative;
+  z-index: 1;
   display: flex;
-  width: max-content;
-  animation: looks-marquee 36s linear infinite;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 100%;
+  height: clamp(13.5rem, 38vh, 26rem);
+  padding: 0.75rem var(--hero-gutter) 0;
+  overflow: hidden;
+`
 
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
+const Frame = styled(motion.figure)<{
+  $height: string
+  $flex: string
+  $hideMobile: boolean
+}>`
+  position: relative;
+  flex: ${(props) => props.$flex} 1 0;
+  height: calc(${(props) => props.$height} * 1.22);
+  margin: 0;
+  overflow: hidden;
+  border-radius: 16px 16px 8px 8px;
+  background: var(--color-cream);
+  box-shadow: var(--shadow-md);
+
+  @media (max-width: 767px) {
+    display: ${(props) => (props.$hideMobile ? 'none' : 'block')};
   }
 
-  @keyframes looks-marquee {
-    to {
-      transform: translateX(-50%);
+  @media (prefers-reduced-motion: reduce) {
+    img {
+      transition: none;
     }
   }
 `
 
-const Marquee = styled.div`
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-
-  &:hover ${Track},
-  &:focus-within ${Track} {
-    animation-play-state: paused;
-  }
-`
-
-const Group = styled.ul`
-  display: flex;
-  align-items: center;
-  gap: 4.75rem;
-  margin: 0;
-  padding: 0.75rem 2.375rem;
-  list-style: none;
-
-  @media (min-width: 1800px) {
-    gap: 6.5rem;
-    padding: 0.95rem 3.5rem;
-  }
-`
-
-const Look = styled.li`
-  font-family: var(--font-heading);
-  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
-
-  @media (min-width: 1800px) {
-    font-size: clamp(1.25rem, 1.2vw, 1.7rem);
-  }
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: var(--color-accent);
-  }
-`
-
-const Stills = styled(motion.div)`
-  display: none;
-
-  @media (min-width: 1600px) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.9rem;
-  }
-`
-
-const Still = styled.img<{ $tilt: number }>`
+const Still = styled.img`
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   object-fit: cover;
-  border: 1px solid var(--color-border);
-  border-radius: 18px;
-  background: var(--color-cream);
-  box-shadow: var(--shadow-md);
-  transform: rotate(${(props) => props.$tilt}deg);
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 
-  &:nth-child(2),
-  &:nth-child(3) {
-    margin-top: 1.75rem;
+  ${Frame}:hover & {
+    transform: scale(1.04);
   }
 `
 
@@ -612,43 +610,31 @@ export default function HeroSection() {
     >
       <Texture aria-hidden="true" />
 
-      <Top>
-        <Wordmark
-          initial={reduceMotion ? false : { opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.45, ease: easeOut }}
-        >
-          AI Studio
-        </Wordmark>
-      </Top>
-
-      <Nav
-        aria-label="AI Studio"
-        initial={reduceMotion ? false : { opacity: 0, y: -14 }}
+      <Header
+        initial={reduceMotion ? false : { opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: reduceMotion ? 0 : 0.45,
-          ease: easeOut,
-          delay: 0.06,
-        }}
+        transition={{ duration: reduceMotion ? 0 : 0.45, ease: easeOut }}
       >
-        <NavLinks>
+        <Wordmark href="#top">AI Studio</Wordmark>
+        <Nav aria-label="AI Studio">
           <NavLink href="#how-it-works">AI Generate</NavLink>
           <NavLink href="#enhance">AI Enhance</NavLink>
           <NavLink href="#studio">Workflow</NavLink>
-        </NavLinks>
-        <Magnetic>
-          <NavCta
-            href="#studio"
-            data-cursor="action"
-            whileHover={reduceMotion ? undefined : { scale: 1.04 }}
-            whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-          >
-            Start Creating
-          </NavCta>
-        </Magnetic>
-      </Nav>
+        </Nav>
+        <NavEnd>
+          <Magnetic>
+            <NavCta
+              href="#studio"
+              data-cursor="action"
+              whileHover={reduceMotion ? undefined : { scale: 1.04 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+            >
+              Start Creating
+            </NavCta>
+          </Magnetic>
+        </NavEnd>
+      </Header>
 
       <Main
         initial={reduceMotion ? false : 'hidden'}
@@ -707,6 +693,17 @@ export default function HeroSection() {
                 <CtaIcon size={16} weight="fill" aria-hidden="true" />
               </PrimaryCta>
             </Magnetic>
+            <Magnetic>
+              <SecondaryCta
+                href="#how-it-works"
+                data-cursor="link"
+                whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                transition={{ duration: 0.2 }}
+              >
+                Explore Features
+              </SecondaryCta>
+            </Magnetic>
           </Actions>
 
           <Points variants={reduceMotion ? undefined : itemVariants}>
@@ -719,36 +716,34 @@ export default function HeroSection() {
           </Points>
         </Copy>
 
-        <Stills
-          aria-hidden="true"
-          variants={reduceMotion ? undefined : itemVariants}
-        >
-          {stills.map((still, index) => (
-            <Still
-              key={still.src}
-              src={still.src}
-              alt=""
-              $tilt={[-3.2, 2.6, 2.1, -2.4][index] ?? 0}
-              style={{ objectPosition: still.position }}
-            />
-          ))}
-        </Stills>
       </Main>
 
-      <Marquee id="styles" aria-label="Studio looks" data-cursor="dark">
-        <Track>
-          <Group>
-            {looks.map((look) => (
-              <Look key={`a-${look}`}>{look}</Look>
-            ))}
-          </Group>
-          <Group aria-hidden="true">
-            {looks.map((look) => (
-              <Look key={`b-${look}`}>{look}</Look>
-            ))}
-          </Group>
-        </Track>
-      </Marquee>
+      <Mountain
+        aria-hidden="true"
+        initial={reduceMotion ? false : 'hidden'}
+        animate="show"
+        variants={reduceMotion ? undefined : mountainVariants}
+      >
+        {stills.map((still, index) => (
+          <Frame
+            key={still.src}
+            $height={still.height}
+            $flex={still.flex}
+            $hideMobile={still.hideMobile}
+            custom={Math.abs(index - 2)}
+            variants={reduceMotion ? undefined : frameVariants}
+            whileHover={
+              reduceMotion ? undefined : { y: -6, transition: { duration: 0.28 } }
+            }
+          >
+            <Still
+              src={still.src}
+              alt=""
+              style={{ objectPosition: still.position }}
+            />
+          </Frame>
+        ))}
+      </Mountain>
     </HeroContainer>
   )
 }

@@ -14,6 +14,12 @@ export default defineConfig({
     dedupe: ['react', 'react-dom', 'remotion'],
   },
   optimizeDeps: {
-    include: ['remotion', '@remotion/player'],
+    include: [
+      'remotion',
+      '@remotion/player',
+      'grapesjs',
+      'grapesjs-blocks-basic',
+      'grapesjs-preset-webpage',
+    ],
   },
 })

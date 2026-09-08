@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { MotionConfig } from 'motion/react'
 import HeroSection from './components/HeroSection'
 import StudioIntro from './components/StudioIntro'
@@ -6,7 +7,9 @@ import AiEnhance from './components/AiEnhance'
 import WorkflowClose from './components/WorkflowClose'
 import PointerRing from './components/PointerRing'
 
-function App() {
+const PortfolioPage = lazy(() => import('./portfolio/PortfolioPage'))
+
+function Landing() {
   return (
     <MotionConfig reducedMotion="user">
       <a className="skip" href="#studio">
@@ -22,6 +25,18 @@ function App() {
       </main>
     </MotionConfig>
   )
+}
+
+function App() {
+  if (window.location.pathname.startsWith('/portfolio')) {
+    return (
+      <Suspense fallback={<div style={{ height: '100svh', background: '#1c1917' }} />}>
+        <PortfolioPage />
+      </Suspense>
+    )
+  }
+
+  return <Landing />
 }
 
 export default App
