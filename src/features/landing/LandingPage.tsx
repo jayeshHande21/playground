@@ -1,11 +1,12 @@
 import { MotionConfig } from 'motion/react'
+import BackLink from '../../shared/components/BackLink'
 import HeroSection from './components/HeroSection'
 import StudioIntro from './components/StudioIntro'
 import HowItWorks from './components/HowItWorks'
 import AiEnhance from './components/AiEnhance'
 import WorkflowClose from './components/WorkflowClose'
 import PointerRing from './components/PointerRing'
-import './home.css'
+import './landing.css'
 
 export default function LandingPage() {
   return (
@@ -13,11 +14,7 @@ export default function LandingPage() {
       <a className="skip" href="#studio">
         Skip to try AI Studio
       </a>
-      <div className="landing-back">
-        <a className="back-home" href="/">
-          Back to playground
-        </a>
-      </div>
+      <BackLink className="landing-back" />
       <PointerRing />
       <main>
         <HeroSection />

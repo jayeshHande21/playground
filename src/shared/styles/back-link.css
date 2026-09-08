@@ -1,0 +1,14 @@
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.35rem 0;
+  font-size: 0.9rem;
+  color: var(--color-muted-foreground);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.back-home:hover {
+  color: var(--color-foreground);
+}

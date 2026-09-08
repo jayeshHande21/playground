@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import grapesjs, { type Editor } from 'grapesjs'
-import { editorOptions } from './editorConfig'
+import BackLink from '../../shared/components/BackLink'
+import { editorOptions } from './config/editorConfig'
 import 'grapesjs/dist/css/grapes.min.css'
-import '../home.css'
 import './portfolio.css'
 
 export default function PortfolioPage() {
@@ -29,11 +29,7 @@ export default function PortfolioPage() {
 
   return (
     <div className="portfolio-page">
-      <div className="portfolio-page__back">
-        <a className="back-home" href="/">
-          Back to playground
-        </a>
-      </div>
+      <BackLink className="portfolio-page__back" />
       <div className="portfolio-page__editor" ref={editorRef} />
     </div>
   )

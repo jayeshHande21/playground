@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react'
-import HomePage from './HomePage'
-import LandingPage from './LandingPage'
+import HomePage from './features/playground/HomePage'
+import LandingPage from './features/landing/LandingPage'
 
-const PortfolioPage = lazy(() => import('./portfolio/PortfolioPage'))
+const PortfolioPage = lazy(() => import('./features/grapesjs/PortfolioPage'))
 
 function App() {
   const path = window.location.pathname

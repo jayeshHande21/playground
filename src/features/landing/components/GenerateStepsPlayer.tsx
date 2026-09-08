@@ -8,7 +8,7 @@ import {
   FPS,
   HEIGHT,
   WIDTH,
-} from '../../remotion/src/AiGenerateSteps'
+} from '../../../../remotion/src/AiGenerateSteps'
 
 const durationLabel = `${Math.round(DURATION_IN_FRAMES / FPS)}s`
 

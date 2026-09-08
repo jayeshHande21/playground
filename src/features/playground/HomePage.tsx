@@ -1,5 +1,5 @@
-import { features } from './features'
-import './home.css'
+import { features } from './registry'
+import './playground.css'
 
 export default function HomePage() {
   return (

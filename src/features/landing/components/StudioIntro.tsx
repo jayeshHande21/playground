@@ -9,7 +9,7 @@ import {
   INTRO_FPS,
   INTRO_HEIGHT,
   INTRO_WIDTH,
-} from '../../remotion/src/AiStudioIntro'
+} from '../../../../remotion/src/AiStudioIntro'
 
 const Section = styled.section`
   overflow: hidden;
