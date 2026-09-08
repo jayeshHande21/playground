@@ -6,7 +6,7 @@ export const headersCategory = {
   open: true,
 } as const
 
-export const headerFontImport = `@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@500;700&family=Public+Sans:wght@400;500;600&display=swap');`
+export const headerFontImport = `@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@500;700&family=Outfit:wght@800&family=Public+Sans:wght@400;500;600;700&display=swap');`
 
 type HeaderBlockInput = {
   id: string

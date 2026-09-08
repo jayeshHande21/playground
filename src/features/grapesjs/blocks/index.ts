@@ -7,6 +7,7 @@ import { heroIntroBlock } from './heroIntro'
 import { heroLeftBlock } from './heroLeft'
 import { heroSplitBlock } from './heroSplit'
 import { heroStatementBlock } from './heroStatement'
+import { aboutBlock } from './about'
 
 export const sectionBlocks: BlockProperties[] = [
   headerBlock,
@@ -17,6 +18,7 @@ export const sectionBlocks: BlockProperties[] = [
   heroLeftBlock,
   heroSplitBlock,
   heroStatementBlock,
+  aboutBlock,
 ]
 
 export const basicBlocks: BlockProperties[] = [
