@@ -1,6 +1,6 @@
-import { createSectionBlock } from './sectionShared'
+import { createAboutBlock } from './sectionShared'
 
-export const aboutBlock = createSectionBlock({
+export const aboutBlock = createAboutBlock({
   id: 'portfolio-about',
   label: 'About',
   media: `<svg viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

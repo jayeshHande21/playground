@@ -1,6 +1,6 @@
-import { createSectionBlock } from './sectionShared'
+import { createHeroBlock } from './sectionShared'
 
-export const heroLeftBlock = createSectionBlock({
+export const heroLeftBlock = createHeroBlock({
   id: 'portfolio-hero-left',
   label: 'Left Hero',
   media: `<svg viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
