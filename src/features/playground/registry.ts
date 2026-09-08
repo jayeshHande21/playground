@@ -7,6 +7,6 @@ export const features = [
   {
     path: '/portfolio',
     label: 'GrapesJS',
-    description: 'Drag-and-drop editor for building a personal portfolio.',
+    description: 'Drag-and-drop editor with importable portfolio sections.',
   },
 ] as const

@@ -1,13 +1,10 @@
 import type { EditorConfig } from 'grapesjs'
+import { editorBlocks } from '../blocks'
 
 export const PORTFOLIO_STORAGE_KEY = 'gjs-portfolio'
 
-export const starterComponents = `
-<section style="padding: 72px 24px; max-width: 720px; margin: 0 auto; font-family: system-ui, sans-serif;">
-  <h1>Your name</h1>
-  <p>Personal portfolio. Open the blocks panel, then drag sections onto the canvas.</p>
-</section>
-`
+export const canvasFonts =
+  'https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@500;700&family=Public+Sans:wght@400;500;600&display=swap'
 
 export const editorOptions: EditorConfig = {
   height: '100%',
@@ -15,29 +12,19 @@ export const editorOptions: EditorConfig = {
   storageManager: false,
   fromElement: false,
   noticeOnUnload: false,
-  blockManager: {
-    blocks: [
-      {
-        id: 'section',
-        label: 'Section',
-        content: `<section style="padding: 48px 24px;">
-          <h2>Section title</h2>
-          <p>Add your content here.</p>
-        </section>`,
-      },
-      {
-        id: 'text',
-        label: 'Text',
-        content: '<div data-gjs-type="text">Insert your text here</div>',
-      },
-      {
-        id: 'image',
-        label: 'Image',
-        select: true,
-        activate: true,
-        content: { type: 'image' },
-      },
-    ],
+  canvas: {
+    styles: [canvasFonts],
   },
-  components: starterComponents,
+  style: `
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f3f3f3;
+      font-family: 'Public Sans', system-ui, sans-serif;
+    }
+  `,
+  blockManager: {
+    blocks: editorBlocks,
+  },
+  components: '',
 }
