@@ -1,5 +1,5 @@
 import type { BlockProperties } from 'grapesjs'
-import { headerFontImport } from './headerShared'
+import { registerSectionCss } from './cssRegistry'
 
 export const heroesCategory = {
   id: 'heroes',
@@ -10,6 +10,12 @@ export const heroesCategory = {
 export const aboutCategory = {
   id: 'about',
   label: 'About',
+  open: true,
+} as const
+
+export const footersCategory = {
+  id: 'footers',
+  label: 'Footers',
   open: true,
 } as const
 
@@ -25,13 +31,14 @@ function createCategorizedBlock(
   category: { id: string; label: string; open: boolean },
   { id, label, media, html, css }: SectionBlockInput,
 ): BlockProperties {
+  registerSectionCss(id, css)
   return {
     id,
     label,
     category,
     select: true,
     media,
-    content: `${html}<style>${headerFontImport}${css}</style>`,
+    content: html,
   }
 }
 
@@ -41,4 +48,8 @@ export function createHeroBlock(input: SectionBlockInput) {
 
 export function createAboutBlock(input: SectionBlockInput) {
   return createCategorizedBlock(aboutCategory, input)
+}
+
+export function createFooterBlock(input: SectionBlockInput) {
+  return createCategorizedBlock(footersCategory, input)
 }

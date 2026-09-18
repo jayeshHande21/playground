@@ -1,4 +1,4 @@
-import { Img } from 'remotion'
+import { Img, interpolate } from 'remotion'
 import { Cover } from './Cover'
 import { media } from './media'
 import { colors, fonts } from './theme'
@@ -52,11 +52,19 @@ function Spark() {
 }
 
 export function GalleryScene({
+  frame,
   selected,
   showBar,
+  selectionPop,
+  barIn,
+  generatePulse,
 }: {
+  frame: number
   selected: boolean
   showBar: boolean
+  selectionPop: number
+  barIn: number
+  generatePulse: number
 }) {
   return (
     <div
@@ -195,8 +203,13 @@ export function GalleryScene({
               minHeight: 0,
             }}
           >
-            {galleryPhotos.map((photo) => {
+            {galleryPhotos.map((photo, index) => {
               const isPick = Boolean(photo.pick && selected)
+              const stagger = interpolate(frame, [4 + index * 3, 16 + index * 3], [0, 1], {
+                extrapolateLeft: 'clamp',
+                extrapolateRight: 'clamp',
+              })
+              const pickScale = isPick ? interpolate(selectionPop, [0, 1], [0.94, 1]) : 1
               return (
                 <div
                   key={photo.name}
@@ -208,7 +221,11 @@ export function GalleryScene({
                     borderRadius: 10,
                     background: colors.white,
                     border: isPick ? '2px solid #2563eb' : `1px solid ${colors.border}`,
-                    boxShadow: isPick ? '0 0 0 3px rgba(37, 99, 235, 0.2)' : 'none',
+                    boxShadow: isPick
+                      ? `0 0 0 ${interpolate(selectionPop, [0, 1], [0, 3])}px rgba(37, 99, 235, 0.2)`
+                      : 'none',
+                    opacity: stagger,
+                    transform: `translateY(${interpolate(stagger, [0, 1], [14, 0])}px) scale(${pickScale})`,
                   }}
                 >
                   <div
@@ -232,6 +249,8 @@ export function GalleryScene({
                           height: 22,
                           borderRadius: 6,
                           background: '#2563eb',
+                          transform: `scale(${interpolate(selectionPop, [0, 1], [0.4, 1])})`,
+                          opacity: selectionPop,
                         }}
                       >
                         <Check />
@@ -267,6 +286,8 @@ export function GalleryScene({
             background: colors.primary,
             color: colors.white,
             boxShadow: '0 12px 28px rgba(43, 49, 57, 0.28)',
+            opacity: barIn,
+            transform: `translateY(${interpolate(barIn, [0, 1], [28, 0])}px)`,
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, fontSize: 12 }}>
@@ -290,6 +311,11 @@ export function GalleryScene({
                 color: colors.primary,
                 fontSize: 13,
                 fontWeight: 700,
+                boxShadow:
+                  generatePulse > 0.2
+                    ? `0 0 0 ${interpolate(generatePulse, [0.2, 1], [0, 6])}px rgba(253, 191, 54, 0.45)`
+                    : 'none',
+                transform: `scale(${interpolate(generatePulse, [0, 1], [1, 1.06])})`,
               }}
             >
               <Wand />

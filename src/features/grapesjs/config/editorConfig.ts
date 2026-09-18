@@ -17,11 +17,7 @@ export const editorOptions: EditorConfig = {
   },
   style: `
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: #f3f3f3;
-      font-family: 'Public Sans', system-ui, sans-serif;
-    }
+    body { margin: 0; }
   `,
   blockManager: {
     blocks: editorBlocks,

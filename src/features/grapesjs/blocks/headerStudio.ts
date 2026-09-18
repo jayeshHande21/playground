@@ -17,7 +17,7 @@ export const headerStudioBlock = createHeaderBlock({
 <header class="krw-studio" data-gjs-name="Studio header" data-gjs-droppable="false">
   <div class="krw-studio__bar" data-gjs-name="Header row" data-gjs-draggable="false">
     <a class="krw-studio__brand" href="#top" data-gjs-name="Brand">
-      <span class="krw-studio__name" data-gjs-name="Name">Keerowa</span>
+      <span class="krw-studio__name" data-gjs-name="Name" data-content-slot="logo">Keerowa</span>
       <span class="krw-studio__meta" data-gjs-name="Role">Design studio</span>
     </a>
     <nav class="krw-studio__nav" data-gjs-name="Navigation" data-gjs-draggable="false">
@@ -39,9 +39,9 @@ export const headerStudioBlock = createHeaderBlock({
 `,
   css: `
 .krw-studio {
-  background: #ffffff;
-  color: #111111;
-  border-bottom: 1px solid #111111;
+  background: var(--theme-surface);
+  color: var(--theme-text);
+  border-bottom: 1px solid var(--theme-text);
 }
 
 .krw-studio__bar {
@@ -56,25 +56,25 @@ export const headerStudioBlock = createHeaderBlock({
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  color: #111111;
+  color: var(--theme-text);
   text-decoration: none;
 }
 
 .krw-studio__name {
-  font-family: 'Libre Bodoni', 'Times New Roman', serif;
-  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-logo);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1;
 }
 
 .krw-studio__meta {
-  font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 0.7rem;
+  font-family: var(--theme-font-body);
+  font-size: var(--theme-size-label);
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #6b6b6b;
+  color: var(--theme-text-muted);
 }
 
 .krw-studio__nav {
@@ -87,11 +87,11 @@ export const headerStudioBlock = createHeaderBlock({
   display: inline-flex;
   align-items: baseline;
   gap: 0.4rem;
-  font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 0.8rem;
+  font-family: var(--theme-font-body);
+  font-size: var(--theme-size-label);
   font-weight: 500;
   letter-spacing: 0.08em;
-  color: #111111;
+  color: var(--theme-text);
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -100,7 +100,7 @@ export const headerStudioBlock = createHeaderBlock({
   font-size: 0.65rem;
   font-weight: 400;
   letter-spacing: 0.04em;
-  color: #6b6b6b;
+  color: var(--theme-text-muted);
 }
 
 .krw-studio__link:hover {

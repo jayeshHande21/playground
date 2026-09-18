@@ -1,35 +1,33 @@
-import { createHeaderBlock } from './headerShared'
+import { createFooterBlock } from './sectionShared'
 
-export const headerBlock = createHeaderBlock({
-  id: 'portfolio-header',
-  label: 'Standard Header',
+export const footerBlock = createFooterBlock({
+  id: 'portfolio-footer',
+  label: 'Standard Footer',
   media: `<svg viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <rect width="72" height="48" fill="#f3f3f3"/>
-    <rect x="4" y="14" width="64" height="20" fill="#ffffff"/>
-    <rect x="8" y="22" width="18" height="4" fill="#111111"/>
-    <rect x="40" y="23" width="7" height="2" fill="#111111"/>
-    <rect x="49" y="23" width="7" height="2" fill="#111111"/>
-    <rect x="58" y="23" width="6" height="2" fill="#111111"/>
+    <rect x="4" y="16" width="64" height="16" fill="#ffffff"/>
+    <rect x="8" y="22" width="16" height="4" fill="#111111"/>
+    <rect x="42" y="23" width="8" height="2" fill="#111111"/>
+    <rect x="52" y="23" width="8" height="2" fill="#111111"/>
   </svg>`,
   html: `
-<header class="krw-header" data-gjs-name="Standard header" data-gjs-droppable="false">
-  <div class="krw-header__bar" data-gjs-name="Header row" data-gjs-draggable="false">
-    <a class="krw-header__logo" href="#top" data-gjs-name="Logo" data-content-slot="logo">.KEEROWA</a>
-    <nav class="krw-header__nav" data-gjs-name="Navigation" data-gjs-draggable="false">
-      <a class="krw-header__link" href="#works" data-gjs-name="Link">Works</a>
-      <a class="krw-header__link" href="#about" data-gjs-name="Link">About</a>
-      <a class="krw-header__link" href="#contact" data-gjs-name="Link">Contact</a>
+<footer class="krw-footer" data-gjs-name="Standard footer" data-gjs-droppable="false">
+  <div class="krw-footer__bar" data-gjs-name="Footer row" data-gjs-draggable="false">
+    <a class="krw-footer__logo" href="#top" data-gjs-name="Logo" data-content-slot="logo">.KEEROWA</a>
+    <nav class="krw-footer__nav" data-gjs-name="Socials" data-gjs-draggable="false" data-content-slot="socials">
+      <a class="krw-footer__link" href="#contact" data-gjs-name="Link">Instagram</a>
+      <a class="krw-footer__link" href="#contact" data-gjs-name="Link">Email</a>
     </nav>
   </div>
-</header>
+</footer>
 `,
   css: `
-.krw-header {
+.krw-footer {
   background: var(--theme-surface);
   color: var(--theme-text);
 }
 
-.krw-header__bar {
+.krw-footer__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,7 +35,7 @@ export const headerBlock = createHeaderBlock({
   padding: clamp(1.35rem, 3.2vw, 2.15rem) clamp(1.5rem, 5vw, 3.5rem);
 }
 
-.krw-header__logo {
+.krw-footer__logo {
   font-family: var(--theme-font-display);
   font-size: var(--theme-size-logo);
   font-weight: 700;
@@ -48,13 +46,13 @@ export const headerBlock = createHeaderBlock({
   text-transform: uppercase;
 }
 
-.krw-header__nav {
+.krw-footer__nav {
   display: flex;
   align-items: center;
   gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.krw-header__link {
+.krw-footer__link {
   position: relative;
   font-family: var(--theme-font-body);
   font-size: var(--theme-size-label);
@@ -65,7 +63,7 @@ export const headerBlock = createHeaderBlock({
   text-transform: uppercase;
 }
 
-.krw-header__link::after {
+.krw-footer__link::after {
   content: '';
   position: absolute;
   right: 0;
@@ -78,12 +76,12 @@ export const headerBlock = createHeaderBlock({
   transition: transform 220ms ease;
 }
 
-.krw-header__link:hover::after {
+.krw-footer__link:hover::after {
   transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .krw-header__link::after {
+  .krw-footer__link::after {
     transition: none;
   }
 }

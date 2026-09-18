@@ -2,7 +2,7 @@ import { createAboutBlock } from './sectionShared'
 
 export const aboutBlock = createAboutBlock({
   id: 'portfolio-about',
-  label: 'About',
+  label: 'Card About',
   media: `<svg viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <rect width="72" height="48" fill="#f3f3f3"/>
     <rect x="8" y="6" width="56" height="36" rx="6" fill="#ffffff"/>
@@ -23,6 +23,7 @@ export const aboutBlock = createAboutBlock({
           class="krw-about__photo"
           data-gjs-type="image"
           data-gjs-name="Portrait"
+          data-content-slot="portrait"
           src="/ai-generate/enhance-fashion.jpg"
           alt="Portrait of Lisa Keerowa"
         />
@@ -49,8 +50,8 @@ export const aboutBlock = createAboutBlock({
   css: `
 .krw-about {
   padding: clamp(1.25rem, 4vw, 2.5rem);
-  background: #f3f3f3;
-  color: #111111;
+  background: var(--theme-bg);
+  color: var(--theme-text);
 }
 
 .krw-about__card {
@@ -59,14 +60,14 @@ export const aboutBlock = createAboutBlock({
   max-width: 52rem;
   margin: 0 auto;
   padding: clamp(2.25rem, 6vw, 3.75rem) clamp(1.5rem, 5vw, 3rem) clamp(1.75rem, 4vw, 2.5rem);
-  background: #ffffff;
+  background: var(--theme-surface);
   border-radius: 2rem;
 }
 
 .krw-about__title {
   margin: 0;
-  font-family: 'Outfit', 'Public Sans', system-ui, sans-serif;
-  font-size: clamp(3.6rem, 16vw, 8.25rem);
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-display);
   font-weight: 800;
   letter-spacing: -0.07em;
   line-height: 0.82;
@@ -85,7 +86,7 @@ export const aboutBlock = createAboutBlock({
   bottom: 100%;
   width: 2px;
   height: 8rem;
-  background: #111111;
+  background: var(--theme-text);
 }
 
 .krw-about__line--me {
@@ -103,7 +104,7 @@ export const aboutBlock = createAboutBlock({
   top: 92%;
   width: 2px;
   height: 4.25rem;
-  background: #111111;
+  background: var(--theme-text);
 }
 
 .krw-about__row {
@@ -127,7 +128,7 @@ export const aboutBlock = createAboutBlock({
 
 .krw-about__hello {
   margin: 0 0 0.85rem;
-  font-family: 'Public Sans', system-ui, sans-serif;
+  font-family: var(--theme-font-body);
   font-size: clamp(1.15rem, 2.4vw, 1.55rem);
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -137,11 +138,11 @@ export const aboutBlock = createAboutBlock({
 
 .krw-about__copy {
   margin: 0;
-  font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 0.92rem;
+  font-family: var(--theme-font-body);
+  font-size: var(--theme-size-body);
   font-weight: 400;
   line-height: 1.55;
-  color: #2a2a2a;
+  color: var(--theme-text-muted);
 }
 
 .krw-about__footer {
@@ -157,10 +158,10 @@ export const aboutBlock = createAboutBlock({
   align-items: center;
   gap: 0.4rem;
   min-height: 44px;
-  font-family: 'Public Sans', system-ui, sans-serif;
+  font-family: var(--theme-font-body);
   font-size: 0.95rem;
   font-weight: 600;
-  color: #111111;
+  color: var(--theme-text);
   text-decoration: none;
   cursor: pointer;
 }
@@ -171,7 +172,7 @@ export const aboutBlock = createAboutBlock({
 
 .krw-about__sign {
   margin: 0;
-  font-family: 'Public Sans', system-ui, sans-serif;
+  font-family: var(--theme-font-body);
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: -0.02em;

@@ -1,4 +1,5 @@
 import type { BlockProperties } from 'grapesjs'
+import { registerSectionCss } from './cssRegistry'
 
 export const headersCategory = {
   id: 'headers',
@@ -23,12 +24,13 @@ export function createHeaderBlock({
   html,
   css,
 }: HeaderBlockInput): BlockProperties {
+  registerSectionCss(id, css)
   return {
     id,
     label,
     category: headersCategory,
     select: true,
     media,
-    content: `${html}<style>${headerFontImport}${css}</style>`,
+    content: html,
   }
 }

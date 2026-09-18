@@ -26,18 +26,18 @@ export const heroLeftBlock = createHeroBlock({
   justify-content: center;
   min-height: 68vh;
   padding: clamp(4.5rem, 12vw, 8rem) clamp(1.5rem, 5vw, 3.5rem);
-  background: #ffffff;
-  color: #111111;
+  background: var(--theme-surface);
+  color: var(--theme-text);
 }
 
 .krw-hero-left__where {
   margin: 0 0 1.35rem;
-  font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-family: var(--theme-font-body);
+  font-size: var(--theme-size-label);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #b3472e;
+  color: var(--theme-accent);
 }
 
 .krw-hero-left__title {
@@ -45,8 +45,8 @@ export const heroLeftBlock = createHeroBlock({
   flex-direction: column;
   max-width: 14ch;
   margin: 0;
-  font-family: 'Libre Bodoni', 'Times New Roman', serif;
-  font-size: clamp(2.1rem, 6.4vw, 4.6rem);
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-heading);
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.04;

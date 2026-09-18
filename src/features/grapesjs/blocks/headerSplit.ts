@@ -19,7 +19,7 @@ export const headerSplitBlock = createHeaderBlock({
       <a class="krw-split__link" href="#works" data-gjs-name="Link">Works</a>
       <a class="krw-split__link" href="#about" data-gjs-name="Link">About</a>
     </nav>
-    <a class="krw-split__logo" href="#top" data-gjs-name="Logo">.KEEROWA</a>
+    <a class="krw-split__logo" href="#top" data-gjs-name="Logo" data-content-slot="logo">.KEEROWA</a>
     <nav class="krw-split__nav krw-split__nav--end" data-gjs-name="Right navigation" data-gjs-draggable="false">
       <a class="krw-split__link" href="#contact" data-gjs-name="Link">Contact</a>
     </nav>
@@ -28,8 +28,8 @@ export const headerSplitBlock = createHeaderBlock({
 `,
   css: `
 .krw-split {
-  background: #ffffff;
-  color: #111111;
+  background: var(--theme-surface);
+  color: var(--theme-text);
 }
 
 .krw-split__bar {
@@ -41,12 +41,12 @@ export const headerSplitBlock = createHeaderBlock({
 }
 
 .krw-split__logo {
-  font-family: 'Libre Bodoni', 'Times New Roman', serif;
-  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-logo);
   font-weight: 700;
   letter-spacing: 0.12em;
   line-height: 1;
-  color: #111111;
+  color: var(--theme-text);
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
@@ -68,11 +68,11 @@ export const headerSplitBlock = createHeaderBlock({
 
 .krw-split__link {
   position: relative;
-  font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-family: var(--theme-font-body);
+  font-size: var(--theme-size-label);
   font-weight: 500;
   letter-spacing: 0.16em;
-  color: #111111;
+  color: var(--theme-text);
   text-decoration: none;
   text-transform: uppercase;
 }

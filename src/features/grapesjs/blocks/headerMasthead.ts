@@ -14,7 +14,7 @@ export const headerMastheadBlock = createHeaderBlock({
   html: `
 <header class="krw-mast" data-gjs-name="Stacked header" data-gjs-droppable="false">
   <div class="krw-mast__bar" data-gjs-name="Header row" data-gjs-draggable="false">
-    <a class="krw-mast__logo" href="#top" data-gjs-name="Logo">.KEEROWA</a>
+    <a class="krw-mast__logo" href="#top" data-gjs-name="Logo" data-content-slot="logo">.KEEROWA</a>
     <nav class="krw-mast__nav" data-gjs-name="Navigation" data-gjs-draggable="false">
       <a class="krw-mast__link" href="#works" data-gjs-name="Link">Works</a>
       <a class="krw-mast__link" href="#about" data-gjs-name="Link">About</a>
@@ -25,8 +25,8 @@ export const headerMastheadBlock = createHeaderBlock({
 `,
   css: `
 .krw-mast {
-  background: #ffffff;
-  color: #111111;
+  background: var(--theme-surface);
+  color: var(--theme-text);
 }
 
 .krw-mast__bar {
@@ -38,12 +38,12 @@ export const headerMastheadBlock = createHeaderBlock({
 }
 
 .krw-mast__logo {
-  font-family: 'Libre Bodoni', 'Times New Roman', serif;
-  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-logo);
   font-weight: 700;
   letter-spacing: 0.18em;
   line-height: 1;
-  color: #111111;
+  color: var(--theme-text);
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -57,11 +57,11 @@ export const headerMastheadBlock = createHeaderBlock({
 
 .krw-mast__link {
   position: relative;
-  font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-family: var(--theme-font-body);
+  font-size: var(--theme-size-label);
   font-weight: 500;
   letter-spacing: 0.2em;
-  color: #111111;
+  color: var(--theme-text);
   text-decoration: none;
   text-transform: uppercase;
 }

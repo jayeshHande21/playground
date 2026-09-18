@@ -24,15 +24,15 @@ export const heroStatementBlock = createHeroBlock({
   justify-content: center;
   min-height: 68vh;
   padding: clamp(4.5rem, 12vw, 8rem) clamp(1.25rem, 4vw, 2.5rem);
-  background: #ffffff;
-  color: #111111;
+  background: var(--theme-surface);
+  color: var(--theme-text);
   text-align: center;
 }
 
 .krw-hero-role__title {
   margin: 0;
-  font-family: 'Libre Bodoni', 'Times New Roman', serif;
-  font-size: clamp(2.6rem, 10vw, 7.5rem);
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-display);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 0.9;
@@ -41,7 +41,7 @@ export const heroStatementBlock = createHeroBlock({
 
 .krw-hero-role__name {
   margin: 1.35rem 0 0.7rem;
-  font-family: 'Libre Bodoni', 'Times New Roman', serif;
+  font-family: var(--theme-font-display);
   font-size: clamp(1.15rem, 2vw, 1.5rem);
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -50,12 +50,12 @@ export const heroStatementBlock = createHeroBlock({
 
 .krw-hero-role__where {
   margin: 0;
-  font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-family: var(--theme-font-body);
+  font-size: var(--theme-size-label);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #b3472e;
+  color: var(--theme-accent);
 }
 `,
 })

@@ -8,6 +8,9 @@ import { heroLeftBlock } from './heroLeft'
 import { heroSplitBlock } from './heroSplit'
 import { heroStatementBlock } from './heroStatement'
 import { aboutBlock } from './about'
+import { aboutStudioBlock } from './aboutStudio'
+import { footerBlock } from './footer'
+import { footerStudioBlock } from './footerStudio'
 
 export const sectionBlocks: BlockProperties[] = [
   headerBlock,
@@ -19,6 +22,9 @@ export const sectionBlocks: BlockProperties[] = [
   heroSplitBlock,
   heroStatementBlock,
   aboutBlock,
+  aboutStudioBlock,
+  footerBlock,
+  footerStudioBlock,
 ]
 
 export const basicBlocks: BlockProperties[] = [
@@ -48,3 +54,13 @@ export const basicBlocks: BlockProperties[] = [
 ]
 
 export const editorBlocks = [...sectionBlocks, ...basicBlocks]
+
+const blocksById = new Map(
+  editorBlocks
+    .filter((block) => block.id !== undefined)
+    .map((block) => [String(block.id), block]),
+)
+
+export function getBlockById(id: string) {
+  return blocksById.get(id)
+}

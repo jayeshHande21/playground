@@ -9,13 +9,23 @@ function Field({
   label,
   value,
   accent,
+  reveal,
 }: {
   label: string
   value: string
   accent?: boolean
+  reveal: number
 }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 5,
+        opacity: reveal,
+        transform: `translateX(${interpolate(reveal, [0, 1], [12, 0])}px)`,
+      }}
+    >
       <div
         style={{
           fontSize: 10,
@@ -67,6 +77,7 @@ function TemplateCard({
   position,
   selected,
   press,
+  enter,
 }: {
   src: string
   title: string
@@ -75,8 +86,12 @@ function TemplateCard({
   position?: string
   selected?: boolean
   press?: number
+  enter: number
 }) {
-  const scale = press == null ? 1 : interpolate(press, [0, 1], [1, 1.03])
+  const scale = press == null ? 1 : interpolate(press, [0, 1], [1, 1.04])
+  const ring = selected
+    ? `0 0 0 ${interpolate(press ?? 1, [0, 1], [0, 4])}px rgba(253, 191, 54, 0.28)`
+    : 'none'
   return (
     <div
       style={{
@@ -85,8 +100,9 @@ function TemplateCard({
         minHeight: 0,
         borderRadius: 12,
         border: `1.5px solid ${selected ? colors.gold : colors.border}`,
-        boxShadow: selected ? '0 0 0 4px rgba(253, 191, 54, 0.28)' : 'none',
-        transform: `scale(${scale})`,
+        boxShadow: ring,
+        opacity: enter,
+        transform: `translateY(${interpolate(enter, [0, 1], [18, 0])}px) scale(${scale * interpolate(enter, [0, 1], [0.96, 1])})`,
       }}
     >
       <Cover src={src} position={position ?? 'center top'} />
@@ -133,29 +149,43 @@ function TemplateCard({
 }
 
 export function StudioScene({
+  sceneFrame,
   templateSelected,
   templatePress,
   typed,
   caretOn,
   settingsIn,
-  progress,
-  previewPress,
+  previewPulse,
   showResult,
   resultIn,
 }: {
+  sceneFrame: number
   templateSelected: boolean
   templatePress: number
   typed: string
   caretOn: boolean
   settingsIn: number
-  progress: number
-  previewPress: number
+  previewPulse: number
   showResult: boolean
   resultIn: number
 }) {
+  const heroIn = interpolate(sceneFrame, [0, 18], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  })
+  const heroZoom = interpolate(sceneFrame, [0, 120], [1.08, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  })
+  const customEnter = interpolate(sceneFrame, [10, 26], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  })
+
   return (
     <div
       style={{
+        position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
@@ -217,9 +247,20 @@ export function StudioScene({
               height: 300,
               flexShrink: 0,
               borderRadius: 14,
+              opacity: heroIn,
+              transform: `translateY(${interpolate(heroIn, [0, 1], [16, 0])}px)`,
             }}
           >
-            <Cover src={media.trending} position="center 28%" />
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                transform: `scale(${heroZoom})`,
+                transformOrigin: 'center 35%',
+              }}
+            >
+              <Cover src={media.trending} position="center 28%" />
+            </div>
             <div
               style={{
                 position: 'absolute',
@@ -235,6 +276,14 @@ export function StudioScene({
                 bottom: 16,
                 maxWidth: 280,
                 color: colors.white,
+                opacity: interpolate(sceneFrame, [6, 22], [0, 1], {
+                  extrapolateLeft: 'clamp',
+                  extrapolateRight: 'clamp',
+                }),
+                transform: `translateY(${interpolate(sceneFrame, [6, 22], [10, 0], {
+                  extrapolateLeft: 'clamp',
+                  extrapolateRight: 'clamp',
+                })}px)`,
               }}
             >
               <div
@@ -264,21 +313,29 @@ export function StudioScene({
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            {FILTERS.map((filter, index) => (
-              <div
-                key={filter}
-                style={{
-                  padding: '5px 10px',
-                  borderRadius: 999,
-                  background: index === 0 ? colors.primary : colors.white,
-                  color: index === 0 ? colors.white : colors.slate,
-                  fontSize: 11,
-                  fontWeight: 600,
-                }}
-              >
-                {filter}
-              </div>
-            ))}
+            {FILTERS.map((filter, index) => {
+              const chipIn = interpolate(sceneFrame, [8 + index * 3, 20 + index * 3], [0, 1], {
+                extrapolateLeft: 'clamp',
+                extrapolateRight: 'clamp',
+              })
+              return (
+                <div
+                  key={filter}
+                  style={{
+                    padding: '5px 10px',
+                    borderRadius: 999,
+                    background: index === 0 ? colors.primary : colors.white,
+                    color: index === 0 ? colors.white : colors.slate,
+                    fontSize: 11,
+                    fontWeight: 600,
+                    opacity: chipIn,
+                    transform: `translateY(${interpolate(chipIn, [0, 1], [8, 0])}px)`,
+                  }}
+                >
+                  {filter}
+                </div>
+              )
+            })}
           </div>
 
           <div
@@ -301,6 +358,8 @@ export function StudioScene({
                 borderRadius: 12,
                 border: `1px dashed ${colors.border}`,
                 background: '#eceff3',
+                opacity: customEnter,
+                transform: `translateY(${interpolate(customEnter, [0, 1], [16, 0])}px)`,
               }}
             >
               <div style={{ fontSize: 13, fontWeight: 700 }}>Custom Template</div>
@@ -316,18 +375,25 @@ export function StudioScene({
                 Write your own prompt and skip the preset looks.
               </div>
             </div>
-            {templates.map((template) => (
-              <TemplateCard
-                key={template.id}
-                src={template.src}
-                title={template.title}
-                copy={template.copy}
-                credits={template.credits}
-                position={template.position}
-                selected={templateSelected && template.id === 'watercolor'}
-                press={template.id === 'watercolor' ? templatePress : undefined}
-              />
-            ))}
+            {templates.map((template, index) => {
+              const enter = interpolate(sceneFrame, [14 + index * 5, 30 + index * 5], [0, 1], {
+                extrapolateLeft: 'clamp',
+                extrapolateRight: 'clamp',
+              })
+              return (
+                <TemplateCard
+                  key={template.id}
+                  src={template.src}
+                  title={template.title}
+                  copy={template.copy}
+                  credits={template.credits}
+                  position={template.position}
+                  selected={templateSelected && template.id === 'watercolor'}
+                  press={template.id === 'watercolor' ? templatePress : undefined}
+                  enter={enter}
+                />
+              )
+            })}
           </div>
         </div>
 
@@ -340,14 +406,60 @@ export function StudioScene({
             padding: '14px 12px',
             background: colors.white,
             borderLeft: `1px solid ${colors.border}`,
-            opacity: interpolate(settingsIn, [0, 1], [0.6, 1]),
+            opacity: interpolate(settingsIn, [0, 1], [0.35, 1]),
+            transform: `translateX(${interpolate(settingsIn, [0, 1], [36, 0])}px)`,
           }}
         >
-          <div style={{ fontSize: 13, fontWeight: 700 }}>Generate settings</div>
-          <Field label="Model" value="Nano Banana Pro" />
-          <Field label="Output format" value="jpeg" />
-          <Field label="Resolution" value="1K" accent />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 5, flex: 1 }}>
+          <div
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              opacity: settingsIn,
+            }}
+          >
+            Generate settings
+          </div>
+          <Field
+            label="Model"
+            value="Nano Banana Pro"
+            reveal={interpolate(settingsIn, [0, 0.45], [0, 1], {
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            })}
+          />
+          <Field
+            label="Output format"
+            value="jpeg"
+            reveal={interpolate(settingsIn, [0.15, 0.6], [0, 1], {
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            })}
+          />
+          <Field
+            label="Resolution"
+            value="1K"
+            accent
+            reveal={interpolate(settingsIn, [0.3, 0.75], [0, 1], {
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            })}
+          />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 5,
+              flex: 1,
+              opacity: interpolate(settingsIn, [0.45, 1], [0, 1], {
+                extrapolateLeft: 'clamp',
+                extrapolateRight: 'clamp',
+              }),
+              transform: `translateX(${interpolate(settingsIn, [0.45, 1], [12, 0], {
+                extrapolateLeft: 'clamp',
+                extrapolateRight: 'clamp',
+              })}px)`,
+            }}
+          >
             <div
               style={{
                 fontSize: 10,
@@ -404,40 +516,25 @@ export function StudioScene({
             {templateSelected ? 'South Indian Watercolor' : 'Choose a template'}
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div
-            style={{
-              width: 120,
-              height: 6,
-              overflow: 'hidden',
-              borderRadius: 999,
-              background: colors.cream,
-            }}
-          >
-            <div
-              style={{
-                width: `${progress * 100}%`,
-                height: '100%',
-                background: colors.gold,
-              }}
-            />
-          </div>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              minHeight: 36,
-              padding: '0 16px',
-              borderRadius: 999,
-              background: colors.action,
-              color: colors.white,
-              fontSize: 13,
-              fontWeight: 700,
-              transform: `scale(${interpolate(previewPress, [0, 1], [1, 0.96])})`,
-            }}
-          >
-            Preview
-          </div>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            minHeight: 36,
+            padding: '0 16px',
+            borderRadius: 999,
+            background: colors.action,
+            color: colors.white,
+            fontSize: 13,
+            fontWeight: 700,
+            boxShadow:
+              previewPulse > 0.2
+                ? `0 0 0 ${interpolate(previewPulse, [0.2, 1], [0, 6])}px rgba(19, 155, 101, 0.45)`
+                : 'none',
+            transform: `scale(${interpolate(previewPulse, [0, 1], [1, 1.06])})`,
+          }}
+        >
+          Preview
         </div>
       </div>
 
@@ -450,7 +547,7 @@ export function StudioScene({
             alignItems: 'center',
             justifyContent: 'center',
             background: `rgba(43, 49, 57, ${interpolate(resultIn, [0, 1], [0, 0.52])})`,
-            opacity: resultIn,
+            opacity: Math.min(1, resultIn * 1.15),
           }}
         >
           <div
@@ -461,7 +558,7 @@ export function StudioScene({
               borderRadius: 16,
               background: colors.white,
               boxShadow: '0 24px 48px rgba(0,0,0,0.28)',
-              transform: `translateY(${interpolate(resultIn, [0, 1], [20, 0])}px)`,
+              transform: `translateY(${interpolate(resultIn, [0, 1], [36, 0])}px) scale(${interpolate(resultIn, [0, 1], [0.88, 1])})`,
             }}
           >
             <Cover src={media.watercolor} position="center 16%" />

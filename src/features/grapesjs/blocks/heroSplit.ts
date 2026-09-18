@@ -29,14 +29,14 @@ export const heroSplitBlock = createHeroBlock({
   gap: clamp(1.5rem, 5vw, 4rem);
   min-height: 68vh;
   padding: clamp(4.5rem, 12vw, 8rem) clamp(1.5rem, 5vw, 3.5rem);
-  background: #ffffff;
-  color: #111111;
+  background: var(--theme-surface);
+  color: var(--theme-text);
 }
 
 .krw-hero-split__title {
   margin: 0;
-  font-family: 'Libre Bodoni', 'Times New Roman', serif;
-  font-size: clamp(2rem, 5.5vw, 4.1rem);
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-heading);
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.04;
@@ -53,17 +53,17 @@ export const heroSplitBlock = createHeroBlock({
 
 .krw-hero-split__where {
   margin: 0;
-  font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-family: var(--theme-font-body);
+  font-size: var(--theme-size-label);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #b3472e;
+  color: var(--theme-accent);
 }
 
 .krw-hero-split__role {
   margin: 0;
-  font-family: 'Libre Bodoni', 'Times New Roman', serif;
+  font-family: var(--theme-font-display);
   font-size: clamp(1.35rem, 2.4vw, 1.85rem);
   font-weight: 700;
   letter-spacing: 0.04em;
